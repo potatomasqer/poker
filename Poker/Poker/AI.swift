@@ -14,7 +14,7 @@ class AI {
         // func inside func
         
         
-        func chanceOfBetterCard(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
+        func singleCardChecker(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
             if card5 != nil{
             if cardToCheck == card2 && cardToCheck == card3 && cardToCheck == card4{
                 //quad
@@ -124,17 +124,34 @@ class AI {
             }else  {
                 return 0
                 }
+            }else if card2 != nil{
+            if ((cardToCheck%13 - 1) == card2%13 ) && (cardToCheck%4 == card2%4 ){
+                //straight flush
+                return 5
+            }else if (cardToCheck - 1) == card2  {
+                //straight
+                return 3
+            }else if cardToCheck%4 == card2%4  {
+                //flush
+                return 4
+            }else if cardToCheck == card2{
+                //pare
+                return 1
+            }else{
+                return 0
+                }
             }
+
             return 0
-        } 
-        func cardChecker(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
+        }
+        func cardComboChecker(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
            //combos
             // proportion of card # and any card
-            let PO1AA = chanceOfBetterCard(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
-            let PO2AA = chanceOfBetterCard(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
-            let PO3AA = chanceOfBetterCard(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
-            let PO4AA = chanceOfBetterCard(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
-            let PO5AA = chanceOfBetterCard(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
+            let PO1AA = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+            let PO2AA = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
+            let PO3AA = singleCardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
+            let PO4AA = singleCardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
+            let PO5AA = singleCardChecker(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
 
             //combo combos
             if PO1AA == 6{
@@ -251,18 +268,18 @@ class AI {
             return 0
         }
         
-        let cardValue = cardChecker(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+        let cardValue = cardComboChecker(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
         
         if cardValue <= 4{
-            let betterCard1 = chanceOfBetterCard(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+            let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
             
-            let betterCard2 = chanceOfBetterCard(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
+            let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
             
-            let betterCard3 = chanceOfBetterCard(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
+            let betterCard3 = singleCardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
             
-            let betterCard4 = chanceOfBetterCard(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
+            let betterCard4 = singleCardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
             
-            let betterCard5 = chanceOfBetterCard(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
+            let betterCard5 = singleCardChecker(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
             
             //card 1
             if betterCard1 < betterCard2{
