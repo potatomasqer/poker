@@ -56,16 +56,16 @@ class AI {
                 //triplet
                 return 2
             }else if cardToCheck == card2{
-                //pare
+                //pair
                 return 1
             }else if cardToCheck == card3{
-                //pare
+                //pair
                 return 1
             }else if cardToCheck == card4{
-                //pare
+                //pair
                 return 1
             }else if cardToCheck == card4{
-                //pare
+                //pair
                 return 1
             }else{
                 return 0
@@ -91,13 +91,13 @@ class AI {
                     //triplet
                     return 2
                 }else  if cardToCheck == card2{
-                    //pare
+                    //pair
                     return 1
                 }else if cardToCheck == card3{
-                    //pare
+                    //pair
                     return 1
                 }else if cardToCheck == card4{
-                    //pare
+                    //pair
                     return 1
                 }else {
                     return 0
@@ -116,10 +116,10 @@ class AI {
                 //triplet
                 return 2
             }else   if cardToCheck == card2{
-                //pare
+                //pair
                 return 1
             }else if cardToCheck == card3{
-                //pare
+                //pair
                 return 1
             }else  {
                 return 0
@@ -135,7 +135,7 @@ class AI {
                 //flush
                 return 4
             }else if cardToCheck == card2{
-                //pare
+                //pair
                 return 1
             }else{
                 return 0
@@ -271,134 +271,31 @@ class AI {
         let cardValue = cardComboChecker(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
         
         if cardValue <= 4{
-            let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
-            
-            let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
-            
-            let betterCard3 = singleCardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
-            
-            let betterCard4 = singleCardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
-            
-            let betterCard5 = singleCardChecker(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
-            
-            //card 1
-            if betterCard1 < betterCard2{
-                
-            }else if betterCard1 > betterCard2{
-                
-            }
-            
-            if betterCard1 < betterCard3{
-                
-            }else if betterCard1 > betterCard3{
-                
-            }
+                        
+            if card5 != nil{
+                let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+                let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
+                let betterCard3 = singleCardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
+                let betterCard4 = singleCardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
+                let betterCard5 = singleCardChecker(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
 
-            if betterCard1 < betterCard4{
+            }else if card4 != nil{
+                let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+                let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
+                let betterCard3 = singleCardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
+                let betterCard4 = singleCardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
                 
-            }else if betterCard1 > betterCard4{
                 
-            }
-
-            if betterCard1 < betterCard5{
+            }else if card3 != nil{
+                let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+                let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
+                let betterCard3 = singleCardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
                 
-            }else if betterCard1 > betterCard5{
+            }else if card2 != nil{
+                let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+                let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
                 
-            }
-            //card 2
-            if betterCard2 < betterCard1{
-                
-            }else if betterCard2 > betterCard1{
-                
-            }
-            
-            if betterCard2 < betterCard3{
-                
-            }else if betterCard2 > betterCard3{
-                
-            }
-
-            if betterCard2 < betterCard4{
-                
-            }else if betterCard2 > betterCard4{
-                
-            }
-
-            if betterCard2 < betterCard5{
-                
-            }else if betterCard2 > betterCard5{
-                
-            }
-            //card 3
-            if betterCard3 < betterCard2{
-                
-            }else if betterCard3 > betterCard2{
-                
-            }
-            
-            if betterCard3 < betterCard1{
-                
-            }else if betterCard3 > betterCard1{
-                
-            }
-
-            if betterCard3 < betterCard4{
-                
-            }else if betterCard3 > betterCard4{
-                
-            }
-
-            if betterCard3 < betterCard5{
-                
-            }else if betterCard3 > betterCard5{
-                
-            }
-            //card 4
-            if betterCard4 < betterCard2{
-                
-            }else if betterCard4 > betterCard2{
-                
-            }
-            
-            if betterCard4 < betterCard3{
-                
-            }else if betterCard4 > betterCard3{
-                
-            }
-
-            if betterCard4 < betterCard1{
-                
-            }else if betterCard4 > betterCard1{
-                
-            }
-
-            if betterCard4 < betterCard5{
-                
-            }else if betterCard4 > betterCard5{
-                
-            }
-            //card 5
-            if betterCard5 < betterCard2{
-                
-            }else if betterCard5 > betterCard2{
-                
-            }
-            
-            if betterCard5 < betterCard3{
-                
-            }else if betterCard5 > betterCard3{
-                
-            }
-
-            if betterCard5 < betterCard4{
-                
-            }else if betterCard5 > betterCard4{
-                
-            }
-
-            if betterCard5 < betterCard1{
-                
-            }else if betterCard5 > betterCard1{
+            }else{
                 
             }
 
