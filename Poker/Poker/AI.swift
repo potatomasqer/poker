@@ -12,7 +12,7 @@ class AI {
     
     func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int )->Int{
         // func inside func
-        
+        var endChoice =0
         
         func singleCardChecker(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
             if card5 != nil{
@@ -295,16 +295,14 @@ class AI {
                 let betterCard1 = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
                 let betterCard2 = singleCardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
                 
-            }else{
-                
-            }
+            }else{}
 
 
 
             
             
         }
-        return cardValue
+        return endChoice
     }
 
 }

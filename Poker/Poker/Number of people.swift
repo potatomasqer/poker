@@ -97,7 +97,7 @@ class Number_of_people: UIViewController {
             let nextVC = storyboard.instantiateViewController(identifier: "chinese")
             show(nextVC, sender: self)
             
-        }else{}
+        }
         
     }
 }
