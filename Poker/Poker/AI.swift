@@ -10,9 +10,9 @@ import UIKit
 
 class AI {
     
-    func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int )->Int{
+    func 5CardAI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int )->Int{
         // func inside func
-        var endChoice =0
+        var endChoice = 0
         
         func singleCardChecker(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
             if card5 != nil{
@@ -28,10 +28,16 @@ class AI {
             }else if cardToCheck == card5 && cardToCheck == card3 && cardToCheck == card4{
                 //quad
                 return 6
-            }else if ((cardToCheck%13 - 1) == card2%13 && (card2%13 - 1) == card3%13 && (card3%13 - 1) == card4%13 && (card4%13 - 1) == card5%13) && (cardToCheck%4 == card2%4 && cardToCheck%4 == card3%4 && cardToCheck%4 == card5%4){
+            }else if (((cardToCheck%13 - 1) == card2%13 && (card2%13 - 1) == card3%13 && (card3%13 - 1) == card4%13 && (card4%13 - 1) == card5%13))  && (cardToCheck%4 == card2%4 && cardToCheck%4 == card3%4 && cardToCheck%4 == card5%4){
                 //straight flush
                 return 5
-            }else if (cardToCheck - 1) == card2 && (card2 - 1) == card3 && (card3 - 1) == card4 && (card4 - 1) == card5{
+            }else if (((cardToCheck%13 + 1) == card2%13 && (card2%13 + 1) == card3%13 && (card3%13 + 1) == card4%13 && (card4%13 + 1) == card5%13))  && (cardToCheck%4 == card2%4 && cardToCheck%4 == card3%4 && cardToCheck%4 == card5%4){
+                //straight flush
+                return 5
+            }else  if ((cardToCheck%13 - 1) == card2%13 && (card2%13 - 1) == card3%13 && (card3%13 - 1) == card4%13 && (card4%13 - 1) == card5%13){
+                //straight
+                return 3
+            }else if  ((cardToCheck%13 + 1) == card2%13 && (card2%13 + 1) == card3%13 && (card3%13 + 1) == card4%13 && (card4%13 + 1) == card5%13){
                 //straight
                 return 3
             }else if cardToCheck%4 == card2%4 && cardToCheck%4 == card3%4 && cardToCheck%4 == card4%4 && cardToCheck%4 == card5{
@@ -64,7 +70,7 @@ class AI {
             }else if cardToCheck == card4{
                 //pair
                 return 1
-            }else if cardToCheck == card4{
+            }else if cardToCheck == card5{
                 //pair
                 return 1
             }else{
@@ -144,7 +150,7 @@ class AI {
 
             return 0
         }
-        func cardComboChecker(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
+        func fiveCardComboChecker(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
            //combos
             // proportion of card # and any card
             let PO1AA = singleCardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
@@ -156,53 +162,71 @@ class AI {
             //combo combos
             if PO1AA == 6{
                 //only
+                return 7
             }else if PO2AA == 6{
                 //only
+                return 7
             }else if PO3AA == 6{
                 //only
+                return 7
             }else  if PO4AA == 6{
                 //only
+                return 7
             }else if PO5AA == 6{
                 //only
-            }else
-                
-                if PO1AA == 5{
+                return 7
+            }else if PO1AA == 5{
                 //Top
+                    return 6
             }else if PO2AA == 5{
             //Top
+                    return 6
             }else if PO3AA == 5{
             //Top
+                    return 6
             }else if PO4AA == 5{
             //Top
+                    return 6
             }else if PO5AA == 5{
             //Top
-            }else
-            if PO1AA == 4{
-             //all equal
+                    return 6
+            }else if PO1AA == 4{
+             //all flushed
+                return 5
             }else if PO1AA == 3{
             //Top
+                return 4
             }else if PO2AA == 3{
             //Top
+                return 4
              }else if PO3AA == 3{
             //Top
+                return 4
             }else if PO4AA == 3{
             //Top
+                return 4
             }else if PO5AA == 3{
              //Top
+                return 4
             }else
                 if PO1AA == 2{
                 //Tripplet
                     //checking for dubble
                     if PO2AA == 1{
                         //full house
+                        return 3
                     }else if PO3AA == 1{
                         //full house
+                        return 3
                     }else if PO4AA == 1{
                         //full house
+                        return 3
                     }else if PO5AA == 1{
                         //full house
+                        return 3
                     }else {
                         //no dubble
+                        return 2
                     }
 
             }else if PO2AA == 2{
@@ -210,65 +234,96 @@ class AI {
                     //checking for dubble
                     if PO1AA == 1{
                         //full house
+                        return 3
                     }else if PO3AA == 1{
                         //full house
+                        return 3
                     }else if PO4AA == 1{
                         //full house
+                        return 3
                     }else if PO5AA == 1{
                         //full house
+                        return 3
                     }else {
                         //no dubble
+                        return 2
                     }
             }else if PO3AA == 2{
             //Tripplet
                     //checking for dubble
                     if PO2AA == 1{
                         //full house
+                        return 3
                     }else if PO1AA == 1{
                         //full house
+                        return 3
                     }else if PO4AA == 1{
                         //full house
+                        return 3
                     }else if PO5AA == 1{
                         //full house
+                        return 3
                     }else {
                         //no dubble
+                        return 2
                     }
             }else if PO4AA == 2{
             //Tripplet
                     //checking for dubble
                     if PO2AA == 1{
                         //full house
+                        return 3
                     }else if PO3AA == 1{
                         //full house
+                        return 3
                     }else if PO1AA == 1{
                         //full house
+                        return 3
                     }else if PO5AA == 1{
                         //full house
+                        return 3
                     }else {
                         //no dubble
+                        return 2
                     }
             }else if PO5AA == 2{
             //Tripplet
                     //checking for dubble
                     if PO2AA == 1{
                         //full house
+                        return 3
                     }else if PO3AA == 1{
                         //full house
+                        return 3
                     }else if PO4AA == 1{
                         //full house
+                        return 3
                     }else if PO1AA == 1{
                         //full house
+                        return 3
                     }else {
                         //no dubble
+                        return 2
                     }
+                }else if PO2AA == 1{
+                    //dubble
+                    return 1
+                }else if PO3AA == 1{
+                    //dubble
+                    return 1
+                }else if PO4AA == 1{
+                    //dubble
+                    return 1
+                }else if PO1AA == 1{
+                    //dubble
+                    return 1
                 }else {
-                    
-            }
+                    return 0
+                }
             
-            return 0
         }
         
-        let cardValue = cardComboChecker(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+        let cardValue = fiveCardComboChecker(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
         
         if cardValue <= 4{
                         
