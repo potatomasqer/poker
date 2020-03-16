@@ -424,6 +424,7 @@ class AI {
         
         
         //desider
+        // needs work
         func desider(valuatedCardes: Int)-> Int{
             let cardValue  = cardValuator(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
             //deside 1 to 3
