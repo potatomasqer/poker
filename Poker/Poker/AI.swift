@@ -10,7 +10,7 @@ import UIKit
 
 class AI {
     
-    func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, AllIn: Bool, roundsPlayed: Int,prevousGames: Array<Int> )-> Int{
+    func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, AllIn: Bool, roundsPlayed: Int )-> Int{
         // func inside func
         var AICards = [Int]()
         var endChoice = 0
