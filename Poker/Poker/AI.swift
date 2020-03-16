@@ -10,10 +10,9 @@ import UIKit
 
 class AI {
     
-    var AICards = [Int]()
-    
-    func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int )-> Int{
+    func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, AllIn: Bool, roundsPlayed: Int,prevousGames: Array<Int> )-> Int{
         // func inside func
+        var AICards = [Int]()
         var endChoice = 0
         AICards = [card1, card2, card3, card4, card5]
         AICards.sort()
@@ -422,9 +421,37 @@ class AI {
             return 0
         }
         
-        endChoice = cardValuator(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
         
+        
+        //desider
+        func desider(valuatedCardes: Int)-> Int{
+            let cardValue  = cardValuator(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+            //deside 1 to 3
+            //1 is call
+            //2 is rase
+            //3 is fold
+            if AllIn == true {
+                return 1
+            }
+            if cardValue >= 6{
+                return 2
+            }
+            if cardValue >= 2 && roundsPlayed <= 5{
+                return 1
+            }else if cardValue >= 2 && roundsPlayed > 5{
+                return 3
+            }
+            
+            
+        return 3
+        }
+        
+        endChoice = desider(valuatedCardes: cardValuator(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5))
         return endChoice
+        
+        
+        
+        
     }
     
     
