@@ -7,13 +7,39 @@
 //
 
 import UIKit
+import CoreML
+
+protocol MLCustomModel{
+    
+}
+protocol MLCustomLayer{
+    
+}
+@objc(MyCustomModel) class MyCustomModel: NSObject, MLCustomModel {
+    init(parameters: [String : Any]){
+        
+    }
+}
+
+
 
 class AI {
+    //machene learning
+    let MLearner = MyCustomModel.self
+    func MLearning(cards: Array<Int>, valueOfCards: Int, roundNumber: Int, isAllIn: Bool ){
+        
     
+    }
+    
+    
+    //initilizing stuff
+    var AICards = [Int]()
+    var endChoice = 0
+
+    
+    // card evaluating
     func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, AllIn: Bool, roundsPlayed: Int )-> Int{
         // func inside func
-        var AICards = [Int]()
-        var endChoice = 0
         AICards = [card1, card2, card3, card4, card5]
         AICards.sort()
         
@@ -139,6 +165,7 @@ class AI {
                         return 2
                     }
                     if amountPairedWith == 2{
+                        //pair
                         return 1
                     }
                     
@@ -418,40 +445,11 @@ class AI {
             //cards are useless
             return 0
             }
+            //failed to count cards? or cards amount below 2
             return 0
         }
         
-        
-        
-        //desider
-        // needs work
-        func desider(valuatedCardes: Int)-> Int{
-            let cardValue  = cardValuator(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5)
-            //deside 1 to 3
-            //1 is call
-            //2 is rase
-            //3 is fold
-            if AllIn == true {
-                return 1
-            }
-            if cardValue >= 6{
-                return 2
-            }
-            if cardValue >= 2 && roundsPlayed <= 5{
-                return 1
-            }else if cardValue >= 2 && roundsPlayed > 5{
-                return 3
-            }
-            
-            
-        return 3
-        }
-        
-        endChoice = desider(valuatedCardes: cardValuator(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5))
         return endChoice
-        
-        
-        
         
     }
     
