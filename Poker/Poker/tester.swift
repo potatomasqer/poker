@@ -52,12 +52,13 @@ class tester: UIViewController {
         super.viewDidLoad()
     }
     @IBAction func startGame(_ sender: Any) {
+        deck.removeAll()
         for i in 1...52{
             if i != 0{
             deck.append(i)
-            print(deck[i-1])
             }
         }
+        print("deak duping check", deck.count)
         for i in 0...deck.count-1{
         let number = deck.index(after: i-1)
         let removedNumber = deck.remove(at: number)
@@ -96,10 +97,15 @@ class tester: UIViewController {
         actualCardNum5.text = String(AICard5)
         
         cardNumInSuit1.text = String(AICard1%13)
+        if cardNumInSuit1.text! == "0" {cardNumInSuit1.text = "13"}
         cardNumInSuit2.text = String(AICard2%13)
+        if cardNumInSuit2.text! == "0" {cardNumInSuit2.text = "13"}
         cardNumInSuit3.text = String(AICard3%13)
+        if cardNumInSuit3.text! == "0" {cardNumInSuit3.text = "13"}
         cardNumInSuit4.text = String(AICard4%13)
+        if cardNumInSuit4.text! == "0" {cardNumInSuit4.text = "13"}
         cardNumInSuit5.text = String(AICard5%13)
+        if cardNumInSuit5.text! == "0" {cardNumInSuit5.text = "13"}
         
         cardSuit1.text = String((AICard1/13))
         cardSuit2.text = String((AICard2/13))
