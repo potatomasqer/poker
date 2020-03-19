@@ -16,13 +16,19 @@ protocol MLCustomLayer{
     
     
 }
+protocol MLFeatureProvider{
+    var AIResorces: AI { get set }
+    var features:MLFeatureProvider {get set}
+    
+}
 @objc(MyCustomModel) class pokerModel: NSObject, MLCustomModel {
    init(parameters: [String : Any]){
-       
-   }
+       }
     func setWeightData(_ weights: [Data]) throws{
         
     }
+    
+    
 
     
     
