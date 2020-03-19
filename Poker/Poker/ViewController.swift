@@ -61,36 +61,43 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //if in match
-        let defaults = UserDefaults.standard
-        defaults.setValue(typeOfPoker, forKey: "type")
         senders()
     }
-    
+    let defaults = UserDefaults.standard
         @IBAction func blackjack(_ sender: Any) {
         typeOfPoker = 1
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
     @IBAction func Texas(_ sender: Any) {
         typeOfPoker = 2
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
     @IBAction func FiveCard(_ sender: Any) {
         typeOfPoker = 3
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
     @IBAction func threeCard(_ sender: Any) {
         typeOfPoker = 4
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
     @IBAction func Straight(_ sender: Any) {
         typeOfPoker = 5
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
     @IBAction func sevenStud(_ sender: Any) {
         typeOfPoker = 6
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
     @IBAction func chinese(_ sender: Any) {
         typeOfPoker = 7
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nvc = segue.destination as! Number_of_people
-        nvc.typeOfPoker = typeOfPoker
+        defaults.setValue(typeOfPoker, forKey: "type")
+
     }
 
 
