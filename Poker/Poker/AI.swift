@@ -14,18 +14,25 @@ protocol MLCustomModel{
 }
 protocol MLCustomLayer{
     
+    
 }
-@objc(MyCustomModel) class MyCustomModel: NSObject, MLCustomModel {
-    init(parameters: [String : Any]){
+@objc(MyCustomModel) class pokerModel: NSObject, MLCustomModel {
+   init(parameters: [String : Any]){
+       
+   }
+    func setWeightData(_ weights: [Data]) throws{
         
     }
+
+    
+    
 }
 
 
 
 class AI {
     //machene learning
-    let MLearner = MyCustomModel.self
+    let pokerType = pokerModel.self
     func MLearning(cards: Array<Int>, valueOfCards: Int, roundNumber: Int, isAllIn: Bool ){
         
     
