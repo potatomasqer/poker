@@ -27,6 +27,8 @@ class AI {
     }
     
     func cardValuator(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
+        print("card valuation")
+        print("card valuation")
         let AIC1 = cardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
         let AIC2 = cardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
         let AIC3 = cardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
@@ -35,7 +37,7 @@ class AI {
         
         let AICValuatorArray = [AIC1, AIC2, AIC3, AIC4, AIC5]
         var amountOfParedCards = 0
-        print("card valuation")
+        
         print(AICValuatorArray)
 
         if card5 != 0 {
@@ -75,21 +77,20 @@ class AI {
                 if AICValuatorArray[i] == 1{
                     //parir
                 amountOfParedCards += 1
+                print("paired", amountOfParedCards)
                 }
                 //pares
-                if amountOfParedCards == 4{
+                
+                }
+            if amountOfParedCards == 4{
                     //dubble pair
                     return 2
-                }else if amountOfParedCards == 1{
+                }else if amountOfParedCards == 2{
                     // pair
                     return 1
-                }
             }
-        }else{
-        //cards are useless
-            print("failed")
-        return 0
-        }
+            }
+            
         //failed to count cards? or cards amount below 2
         print("failed")
         return 0
@@ -110,44 +111,46 @@ class AI {
     
     func cardChecker(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
         AICards.removeAll()
-        AICards.append(contentsOf: [cardToCheck, card2, card3, card4, card5])
+        AICards.append(contentsOf: [card2, card3, card4, card5])
         AICards.sort()
-        let card1Location = AICards.firstIndex(of: cardToCheck)
-            //arrays
-            let AIHandNumbers = [AICards[0]%13, AICards[1]%13, AICards[2]%13,AICards[3]%13,AICards[4]%13]
-            let AISuitNumbers =   [AICards[0]/13, AICards[1]/13, AICards[2]/13,AICards[3]/13,AICards[4]/13]
-            print(AIHandNumbers)
-            //importent varables
-            var amountPairedWith = 0
-            var foundStraight = false
-            var amountFlushedWith = 0
+        
+        //arrays
+        let AIHandNumbers = [AICards[0]%13, AICards[1]%13, AICards[2]%13,AICards[3]%13,]
+        let AISuitNumbers =   [AICards[0]/13, AICards[1]/13, AICards[2]/13,AICards[3]/13,]
+        var AIStraightChecker = [cardToCheck%13+1,AICards[0]%13+1, AICards[1]%13+1, AICards[2]%13+1,AICards[3]%13+1]
+        AIStraightChecker.sort(by: >)
+        print(AIHandNumbers)
+        //importent varables
+        var amountPairedWith = 0
+        var foundStraight = false
+        var amountFlushedWith = 0
             
-            print("card Location",card1Location!)
+        print("checking card#", cardToCheck)
 
-            for i in 0...4{
-                //only caounts if it is not compariong to itself
+            for i in 0...3{
                 
-                if i != card1Location{
-                    
-                    if cardToCheck == AIHandNumbers[i]{
+                
+                
+                    if cardToCheck%13 == AIHandNumbers[i]{
                         //number of cards with the same number
                         // findes pares, triplits and quads
                         amountPairedWith += 1
                         print("paired",amountPairedWith, i)
                     }
-                    if cardToCheck/4 == AISuitNumbers[i]{
+                    if cardToCheck/13 == AISuitNumbers[i]{
                         //number of cards in the same suit
                         //trys to find a flush
                         amountFlushedWith += 1
+                        print("Flushed",amountFlushedWith, i)
                     }
                     
-                    if  AIHandNumbers[0]-1 == AIHandNumbers[1] && AIHandNumbers[1]-1 == AIHandNumbers[2] && AIHandNumbers[2]-1 == AIHandNumbers[3] && AIHandNumbers[3]-1 == AIHandNumbers[4]{
+                    if  AIStraightChecker[0]-1 == AIStraightChecker[1] && AIStraightChecker[1]-1 == AIStraightChecker[2] && AIStraightChecker[2]-1 == AIStraightChecker[3] && AIStraightChecker[3]-1 == AIStraightChecker[4]{
                         //findes straight
                         foundStraight = true
                     }
                     
-                    
-                }
+        }
+                
                 // results to return
                 if amountPairedWith == 3{
                     //quad
@@ -172,17 +175,18 @@ class AI {
                     return 1
                 }
                 if amountPairedWith == 0{
-                    print("useless",i, amountPairedWith)
+                    print("useless")
+                    return 0
                 }
-            }
+            
         print("failed/useless")
         return 0
         }
             
 
-    // card evaluating
+    
     func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, AllIn: Bool, roundsPlayed: Int )-> Int{
-        // func inside func
+        
         AICards = [card1, card2, card3, card4, card5]
         AICards.sort()
         
