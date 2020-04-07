@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var AIController = AI()
+    
+    
     var typeOfPoker = 0
     //autosave funcs
     func senders(){
@@ -60,6 +63,8 @@ class ViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        AIController.tester()
+        
         //if in match
         senders()
     }

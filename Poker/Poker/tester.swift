@@ -12,6 +12,7 @@ class tester: UIViewController {
     //varibles
     var AIController = AI()
     var deck = [Int]()
+    var nessaryValues = [Int]()
     
     var AICard1 = 0
     var AICard2 = 0
@@ -47,6 +48,10 @@ class tester: UIViewController {
     
     @IBOutlet weak var allCardValue: UILabel!
     
+    @IBOutlet weak var cardToRemove1: UILabel!
+    @IBOutlet weak var cardToRemove2: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +63,7 @@ class tester: UIViewController {
             deck.append(i)
             }
         }
-        print("deak duping check", deck.count)
+        print("deck duping check", deck.count)
         for i in 0...deck.count-1{
         let number = deck.index(after: i-1)
         let removedNumber = deck.remove(at: number)
@@ -120,13 +125,13 @@ class tester: UIViewController {
         Card5Value.text = String(card5Value)
         
         allCardValue.text = String(AllCardValue)
+     
+        
+        
+        nessaryValues = AIController.probabilityChecker(card1: AICard1, card2: AICard2, card3: AICard3, card4: AICard4, card5: AICard5, handValue: AllCardValue) 
+        
+        cardToRemove1.text = String(nessaryValues[11])
+        cardToRemove2.text = String(nessaryValues[12])
         
     }
-    
-        
-    
-    
-
-    
-
 }
