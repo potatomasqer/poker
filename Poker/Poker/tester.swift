@@ -19,6 +19,7 @@ class tester: UIViewController {
     var AICard3 = 0
     var AICard4 = 0
     var AICard5 = 0
+    var AIHand = [Int]()
     //outlets
     @IBOutlet weak var actualCardNum1: UILabel!
     @IBOutlet weak var actualCardNum2: UILabel!
@@ -50,6 +51,7 @@ class tester: UIViewController {
     
     @IBOutlet weak var cardToRemove1: UILabel!
     @IBOutlet weak var cardToRemove2: UILabel!
+    @IBOutlet weak var cardToRemove3: UILabel!
     
     
     
@@ -127,10 +129,10 @@ class tester: UIViewController {
         allCardValue.text = String(AllCardValue)
      
         
-        
-        
+        nessaryValues = AIController.probabilityChecker(card1: AICard1, card2: AICard2, card3: AICard3, card4: AICard4, card5: AICard5, handValue: AllCardValue, visibleCards: [], necessaryValues: nessaryValues)
+        print("duping check",nessaryValues, nessaryValues.count)
         cardToRemove1.text = String(nessaryValues[11])
         cardToRemove2.text = String(nessaryValues[12])
-        
+        cardToRemove3.text = String(nessaryValues[13])
     }
 }

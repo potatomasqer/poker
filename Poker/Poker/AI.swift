@@ -39,11 +39,7 @@ class AI {
     
     //checks all cards against all other cards
     func cardValuator(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
-        print("card valuation")
-        print("card valuation")
-        print("card valuation")
-        print("card valuation")
-        print("card valuation")
+    
        
         if card5 != 0 {
             
@@ -56,10 +52,8 @@ class AI {
                    let AICValuatorArray = [AIC1, AIC2, AIC3, AIC4, AIC5]
                    var amountOfParedCards = 0
                    
-                   print("5 cards",AICValuatorArray)
             
             for i in 0...4{
-                print(i, AICValuatorArray[i])
                 if AICValuatorArray[i] == 6{
                     //streight flush
                     return 8
@@ -92,7 +86,6 @@ class AI {
                 if AICValuatorArray[i] == 1{
                     //parir
                 amountOfParedCards += 1
-                print("paired", amountOfParedCards)
                 }
                 //pares
                 
@@ -115,10 +108,8 @@ class AI {
             
                        var amountOfParedCards = 0
                        
-                       print("4 cards",AICValuatorArray)
                 
                 for i in 0...3{
-                    print(i, AICValuatorArray[i])
                     if AICValuatorArray[i] == 6{
                         //streight flush
                         return 7
@@ -143,7 +134,6 @@ class AI {
                     if AICValuatorArray[i] == 1{
                         //parir
                     amountOfParedCards += 1
-                    print("paired", amountOfParedCards)
                     }
                     //pares
                     
@@ -164,10 +154,8 @@ class AI {
                        let AICValuatorArray = [AIC1, AIC2, AIC3,]
                        var amountOfParedCards = 0
                        
-                       print("3 cards",AICValuatorArray)
-                
+
                 for i in 0...2{
-                    print(i, AICValuatorArray[i])
                     if AICValuatorArray[i] == 6{
                         //streight flush
                         return 4
@@ -184,7 +172,6 @@ class AI {
                     if AICValuatorArray[i] == 1{
                         //parir
                     amountOfParedCards += 1
-                    print("paired", amountOfParedCards)
                     }
                     //pares
                     
@@ -201,10 +188,8 @@ class AI {
                        let AICValuatorArray = [AIC1, AIC2]
                        var amountOfParedCards = 0
                        
-                       print("2 card",AICValuatorArray)
                 
                 for i in 0...4{
-                    print(i, AICValuatorArray[i])
                     if AICValuatorArray[i] == 6{
                         //streight flush
                         return 4
@@ -222,7 +207,6 @@ class AI {
                     if AICValuatorArray[i] == 1{
                         //parir
                     amountOfParedCards += 1
-                    print("paired", amountOfParedCards)
                     }
                     //pares
                     
@@ -233,7 +217,6 @@ class AI {
                 }
             }
         //failed to count cards? or cards amount below 2
-        print("failed")
         return 0
     }
 
@@ -260,13 +243,13 @@ class AI {
         let AISuitNumbers =   [AICards[0]/13, AICards[1]/13, AICards[2]/13,AICards[3]/13,]
         var AIStraightChecker = [cardToCheck%13+1,AICards[0]%13+1, AICards[1]%13+1, AICards[2]%13+1,AICards[3]%13+1]
         AIStraightChecker.sort(by: >)
-        print(AIHandNumbers)
+    
         //importent varables
         var amountPairedWith = 0
         var foundStraight = false
         var amountFlushedWith = 0
             
-        print("checking card#", cardToCheck)
+        
 
             for i in 0...3{
                 
@@ -276,13 +259,13 @@ class AI {
                         //number of cards with the same number
                         // findes pares, triplits and quads
                         amountPairedWith += 1
-                        print("paired",amountPairedWith, i)
+                        
                     }
                     if cardToCheck/13 == AISuitNumbers[i]{
                         //number of cards in the same suit
                         //trys to find a flush
                         amountFlushedWith += 1
-                        print("Flushed",amountFlushedWith, i)
+                        
                     }
                     
                     if  AIStraightChecker[0]-1 == AIStraightChecker[1] && AIStraightChecker[1]-1 == AIStraightChecker[2] && AIStraightChecker[2]-1 == AIStraightChecker[3] && AIStraightChecker[3]-1 == AIStraightChecker[4]{
@@ -316,12 +299,11 @@ class AI {
                     return 1
                 }
                 if amountPairedWith == 0{
-                    print("useless")
+                    
                     return 0
                 }
             
-        print("failed/useless")
-        return 0
+            return 0
         }
             
 
@@ -338,7 +320,10 @@ class AI {
         var isComboUsefull = [Int]()
         var locations = [Int]()
         var necessaryValuesCopy = nessaryValues
+        var bestBitmap = [Int]()
+        var bestBitmapScore = 0
         
+        print("current Score",hand)
         //doing stuff with nessaryValues
         for i in 0...4{
             necessaryValuesCopy[i] = hand[i]
@@ -351,11 +336,12 @@ class AI {
             let location = deckCopy.firstIndex(of: hand[i])
             deckCopy.remove(at: location!)
         }
-        for i in 0...visibleCards.count-1{
-            let location = deckCopy.firstIndex(of: visibleCards[i])
-            deckCopy.remove(at: location!)
+        if visibleCards != [] {
+            for i in 0...visibleCards.count-1{
+                let location = deckCopy.firstIndex(of: visibleCards[i])
+                deckCopy.remove(at: location!)
+            }
         }
-        
         //looking thrue all combonations of replaced cards
         for i in 0...31{
             var iShifted: Int = i
@@ -404,8 +390,6 @@ class AI {
                             if replacementNumber == 3{
                                 hand[m] = replaceCard3
                                 replacementNumber += 1
-                            }else if replacementNumber < 3{
-                                print("to many required replacements")
                             }
                             
                         }
@@ -430,7 +414,6 @@ class AI {
         //allBitmaps has 32 entries of 5 or 160 total entries
         // there is 32 posible entries of 5
         for bitmapNumber in 0...31{
-            var usefulBitmaps = 0
             for i in 0...4{
                 bitmap[i] = allBitmaps[bitmapNumber*5+i]
             }
@@ -443,21 +426,29 @@ class AI {
                     //combo is worce than current hand
                 }else{
                     //bitmap produces results better then current hand
-                    usefulBitmaps += 1
                     //findes all cards to replace
-                    for i in 0...4{
+                    for i in 0...bitmap.count-1{
                             if bitmap[i] == 1{
                             locations.append(i)
                         }
-                    }// end of i-loop
-                    if locations.count <= 4{
-                        //not doing it
-                    }else{
-                        //can do
-                        for locationInLocations in 0...locations.count-1{
-                            necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]
-                        }
                     }
+                    if bestBitmapScore < comboScoreResults[bitmapNumber]{
+                            if locations.count != 0{
+                            //best Bitmap
+                                print("best bitmap numbers",bestBitmap, "score",bestBitmapScore)
+                            bestBitmapScore = comboScoreResults[bitmapNumber]
+                            bestBitmap.removeAll()
+                            for a in 0...4{
+                                bestBitmap.append(bitmap[a])
+                            }
+                                print("new Best Bitmap", bestBitmap, "score", bestBitmapScore)
+                            print("probility",locations)
+                            for locationInLocations in 0...locations.count-1{
+                                necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
+                            }
+                        }
+                    }//bestbitmap end
+                    locations.removeAll()
                 }//score else end
             }//usefull else end
         }//i-loop end
