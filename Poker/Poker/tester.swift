@@ -128,7 +128,6 @@ class tester: UIViewController {
      
         
         
-        nessaryValues = AIController.probabilityChecker(card1: AICard1, card2: AICard2, card3: AICard3, card4: AICard4, card5: AICard5, handValue: AllCardValue) 
         
         cardToRemove1.text = String(nessaryValues[11])
         cardToRemove2.text = String(nessaryValues[12])

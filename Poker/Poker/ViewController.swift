@@ -63,8 +63,6 @@ class ViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        AIController.tester()
-        
         //if in match
         senders()
     }
