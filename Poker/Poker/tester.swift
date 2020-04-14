@@ -33,13 +33,13 @@ class tester: UIViewController {
     @IBOutlet weak var cardNumInSuit4: UILabel!
     @IBOutlet weak var cardNumInSuit5: UILabel!
     
-    @IBOutlet weak var cardSuit1: UILabel!
-    @IBOutlet weak var cardSuit2: UILabel!
-    @IBOutlet weak var cardSuit3: UILabel!
-    @IBOutlet weak var cardSuit4: UILabel!
-    @IBOutlet weak var cardSuit5: UILabel!
+    @IBOutlet weak var nCard1: UILabel!
+    @IBOutlet weak var nCard2: UILabel!
+    @IBOutlet weak var nCard3: UILabel!
+    @IBOutlet weak var nCard4: UILabel!
+    @IBOutlet weak var nCard5: UILabel!
     
-    
+    @IBOutlet weak var nScore: UILabel!
     
     @IBOutlet weak var Card1Value: UILabel!
     @IBOutlet weak var Card2Value: UILabel!
@@ -53,7 +53,7 @@ class tester: UIViewController {
     @IBOutlet weak var cardToRemove2: UILabel!
     @IBOutlet weak var cardToRemove3: UILabel!
     
-    
+    @IBOutlet weak var desiredScore: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,26 +65,20 @@ class tester: UIViewController {
             deck.append(i)
             }
         }
+        let defaults = UserDefaults.standard
+        defaults.set(deck, forKey: "GlobalDeck")
         print("deck duping check", deck.count)
-        for i in 0...deck.count-1{
-        let number = deck.index(after: i-1)
-        let removedNumber = deck.remove(at: number)
-        deck.append(removedNumber)
-        }
-        let AICard1Location = Int.random(in: 1...deck.count-1)
-        AICard1 = deck.remove(at: AICard1Location)
         
-        let AICard2Location = Int.random(in: 1...deck.count-1)
-        AICard2 = deck.remove(at: AICard2Location)
-        
-        let AICard3Location = Int.random(in: 1...deck.count-1)
-        AICard3 = deck.remove(at: AICard3Location)
-        
-        let AICard4Location = Int.random(in: 1...deck.count-1)
-        AICard4 = deck.remove(at: AICard4Location)
-        
-        let AICard5Location = Int.random(in: 1...deck.count-1)
-        AICard5 = deck.remove(at: AICard5Location)
+        AICard1 = AIController.singleCardDealer(usedDeck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        AICard2 = AIController.singleCardDealer(usedDeck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        AICard3 = AIController.singleCardDealer(usedDeck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        AICard4 = AIController.singleCardDealer(usedDeck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        AICard5 = AIController.singleCardDealer(usedDeck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
         
         
         //Ai functions
@@ -114,11 +108,6 @@ class tester: UIViewController {
         cardNumInSuit5.text = String(AICard5%13)
         if cardNumInSuit5.text! == "0" {cardNumInSuit5.text = "13"}
         
-        cardSuit1.text = String((AICard1/13))
-        cardSuit2.text = String((AICard2/13))
-        cardSuit3.text = String((AICard3/13))
-        cardSuit4.text = String((AICard4/13))
-        cardSuit5.text = String((AICard5/13))
         
         Card1Value.text = String(card1Value)
         Card2Value.text = String(card2Value)
@@ -134,5 +123,27 @@ class tester: UIViewController {
         cardToRemove1.text = String(nessaryValues[11])
         cardToRemove2.text = String(nessaryValues[12])
         cardToRemove3.text = String(nessaryValues[13])
+        
+        desiredScore.text = String(nessaryValues[14])
+        
+        var hand = [AICard1,AICard2,AICard3,AICard4,AICard5]
+        let removalValues = [nessaryValues[11]-1, nessaryValues[12]-1, nessaryValues[13]-1]
+        for i in 0...2{
+            hand[removalValues[i]] = AIController.singleCardDealer(usedDeck: deck, isItGlobal: true)
+            deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        } 
+        
+        nCard1.text = String(hand[0]%13)
+         if nCard1.text! == "0" {nCard1.text = "13"}
+        nCard2.text = String(hand[1]%13)
+        if nCard2.text! == "0" {nCard2.text = "13"}
+        nCard3.text = String(hand[2]%13)
+        if nCard3.text! == "0" {nCard3.text = "13"}
+        nCard4.text = String(hand[3]%13)
+        if nCard4.text! == "0" {nCard4.text = "13"}
+        nCard5.text = String(hand[4]%13)
+        if nCard5.text! == "0" {nCard5.text = "13"}
+        
+        nScore.text = String(AIController.cardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4]))
     }
 }

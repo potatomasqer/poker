@@ -17,18 +17,17 @@ class AI {
     var AICards = [Int]()
     var endChoice = 0
     var deck = [Int]()
-    
-    
-    //DO NOT SORT
-    // location of stuff
-    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in, 14 chance opponent has a better card
-    var nessaryValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    var nessaryValues = [Int]()
     
     
     init() {
         AICards  = [0,0,0,0,0]
         endChoice = 0
-         nessaryValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        
+         //DO NOT SORT
+         // location of stuff
+         //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
+        nessaryValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
     }
     init(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int) {
@@ -56,20 +55,20 @@ class AI {
             for i in 0...4{
                 if AICValuatorArray[i] == 6{
                     //streight flush
-                    return 8
+                    return 70
                     
                 }
                 if AICValuatorArray[i] == 5{
                     //quad
-                    return 7
+                    return 55
                 }
                 if AICValuatorArray[i] == 4{
                     //flush
-                    return 5
+                    return 30
                 }
                 if AICValuatorArray[i] == 3{
                     //streight
-                    return 4
+                    return 15
                 }
                 if AICValuatorArray[i] == 2{
                     //tripplet
@@ -77,9 +76,9 @@ class AI {
                         if n != i{
                             if AICValuatorArray[n] == 1{
                              //full house
-                                return 6
+                                return 40
                             }
-                            return 3
+                            return 8
                         }
                     }
                 }
@@ -92,10 +91,10 @@ class AI {
                 }
             if amountOfParedCards == 4{
                     //dubble pair
-                    return 2
+                    return 4
                 }else if amountOfParedCards == 2{
                     // pair
-                    return 1
+                    return 2
             }
         }else if card4 != 0 {
                 
@@ -227,11 +226,6 @@ class AI {
     
     
     
-    
-    
-    
-    
-    
     //checks card against all other cards
     func cardChecker(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
         AICards.removeAll()
@@ -323,7 +317,7 @@ class AI {
         var bestBitmap = [Int]()
         var bestBitmapScore = 0
         
-        print("current Score",hand)
+        print("current Score",handValue)
         //doing stuff with nessaryValues
         for i in 0...4{
             necessaryValuesCopy[i] = hand[i]
@@ -334,7 +328,7 @@ class AI {
         }
         for i in 0...hand.count-1{
             let location = deckCopy.firstIndex(of: hand[i])
-            deckCopy.remove(at: location!)
+            deckCopy.remove(at: location ?? 0)
         }
         if visibleCards != [] {
             for i in 0...visibleCards.count-1{
@@ -357,7 +351,7 @@ class AI {
                 comboScoreResults.append(0)
                 isComboUsefull.append(0)
             }else{
-                for _ in 0...49{
+                for _ in 0...99{
                     //finds replacement cards for that test and removes them from deck temperalaly
                     //total of 3 cards
                     
@@ -405,7 +399,7 @@ class AI {
                     hand = handExtra
                     
                 }//_-loop close
-                avrageScore /= 50
+                avrageScore /= 100
                 comboScoreResults.append(avrageScore)
                 isComboUsefull.append(1)
             }//else close
@@ -429,22 +423,23 @@ class AI {
                     //findes all cards to replace
                     for i in 0...bitmap.count-1{
                             if bitmap[i] == 1{
-                            locations.append(i)
-                        }
+                                locations.append(i)
+                            }
                     }
                     if bestBitmapScore < comboScoreResults[bitmapNumber]{
                             if locations.count != 0{
                             //best Bitmap
                                 print("best bitmap numbers",bestBitmap, "score",bestBitmapScore)
-                            bestBitmapScore = comboScoreResults[bitmapNumber]
-                            bestBitmap.removeAll()
-                            for a in 0...4{
-                                bestBitmap.append(bitmap[a])
-                            }
+                                bestBitmapScore = comboScoreResults[bitmapNumber]
+                                necessaryValuesCopy[14] = bestBitmapScore
+                                bestBitmap.removeAll()
+                                for a in 0...4{
+                                    bestBitmap.append(bitmap[a])
+                                }
                                 print("new Best Bitmap", bestBitmap, "score", bestBitmapScore)
-                            print("probility",locations)
-                            for locationInLocations in 0...locations.count-1{
-                                necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
+                                print("probility",locations)
+                                for locationInLocations in 0...locations.count-1{
+                                    necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
                             }
                         }
                     }//bestbitmap end
@@ -469,5 +464,18 @@ class AI {
             defaults.set(usedDeck, forKey: "GlobalDeck")
         }
         return deltCard
+    }
+    
+    func fullHandDealer(deck: Array<Int>, isItGlobal: Bool)-> Array<Int>{
+        var tepDeckCopy = deck
+        var hand = [Int]()
+        for _ in 0...4{
+            let dealtCardLocation = Int.random(in: 0...tepDeckCopy.count-1)
+            let deltCard = tepDeckCopy[dealtCardLocation]
+            tepDeckCopy.remove(at: dealtCardLocation)
+            hand.append(deltCard)
+        }
+                
+        return hand
     }
 }
