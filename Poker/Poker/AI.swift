@@ -13,7 +13,7 @@ class AI {
     func AI(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int )->Int{
         // func inside func
         
-        
+        //lejrbgoiwebfvojefdkjdkvjjwdpv
         func chanceOfBetterCard(cardToCheck: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
             
             if cardToCheck == card2 && cardToCheck == card3 && cardToCheck == card4{
