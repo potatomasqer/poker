@@ -55,20 +55,20 @@ class AI {
             for i in 0...4{
                 if AICValuatorArray[i] == 6{
                     //streight flush
-                    return 70
+                    return 55
                     
                 }
                 if AICValuatorArray[i] == 5{
                     //quad
-                    return 55
+                    return 50
                 }
                 if AICValuatorArray[i] == 4{
                     //flush
-                    return 30
+                    return 33
                 }
                 if AICValuatorArray[i] == 3{
                     //streight
-                    return 15
+                    return 22
                 }
                 if AICValuatorArray[i] == 2{
                     //tripplet
@@ -78,7 +78,7 @@ class AI {
                              //full house
                                 return 40
                             }
-                            return 8
+                            return 13
                         }
                     }
                 }
@@ -91,10 +91,10 @@ class AI {
                 }
             if amountOfParedCards == 4{
                     //dubble pair
-                    return 4
+                    return 8
                 }else if amountOfParedCards == 2{
                     // pair
-                    return 2
+                    return 4
             }
         }else if card4 != 0 {
                 
@@ -385,7 +385,6 @@ class AI {
                                 hand[m] = replaceCard3
                                 replacementNumber += 1
                             }
-                            
                         }
                     }//M-loop Close
                     //averaging results from M-loop
