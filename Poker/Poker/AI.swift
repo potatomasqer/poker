@@ -18,12 +18,12 @@ class AI {
     var endChoice = 0
     var deck = [Int]()
     var nessaryValues = [Int]()
-    
+    var importentCardLocation = [Int]()
     
     init() {
         AICards  = [0,0,0,0,0]
         endChoice = 0
-        
+        importentCardLocation = []
          //DO NOT SORT
          // location of stuff
          //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
@@ -50,7 +50,10 @@ class AI {
                    
                    let AICValuatorArray = [AIC1, AIC2, AIC3, AIC4, AIC5]
                    var amountOfParedCards = 0
-                   
+                   // addiong stuff to nessary values
+            for i in 0...4{
+                nessaryValues[i+5] = AICValuatorArray[i]
+            }
             
             for i in 0...4{
                 if AICValuatorArray[i] == 6{
@@ -302,30 +305,178 @@ class AI {
             
 
     
-    func probabilityChecker(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>, necessaryValues: Array<Int>)-> Array<Int>{
-        //visible cards dose not include hand
-        var hand = [card5,card4,card3,card2,card1]
-        let handExtra = hand
-        var deckCopy =  [Int]()
-        var bitmap = [0,0,0,0,0]
-        var comboScoreResults = [Int]()
-        var avrageScore = 0
-        var allBitmaps = [Int()]
-        var isComboUsefull = [Int]()
-        var locations = [Int]()
+    func cardRemover(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>,needToRemoveCards: Bool)-> Array<Int>{
         var necessaryValuesCopy = nessaryValues
-        var bestBitmap = [Int]()
-        var bestBitmapScore = 0
-        
-        print("current Score",handValue)
-        //doing stuff with nessaryValues
-        for i in 0...4{
-            necessaryValuesCopy[i] = hand[i]
+        //only dose this if required
+        if needToRemoveCards == true{
+            preventer(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5, handValue: handValue, visibleCards: visibleCards)
+            //visible cards dose not include hand
+            var hand = [card5,card4,card3,card2,card1]
+            let handExtra = hand
+            var deckCopy =  [Int]()
+            var bitmap = [0,0,0,0,0]
+            var comboScoreResults = [Int]()
+            var avrageScore = 0
+            var allBitmaps = [Int()]
+            var isComboUsefull = [Int]()
+            var locations = [Int]()
+            var notHappning = false
+            var bestBitmap = [Int]()
+            var bestBitmapScore = 0
+            
+            print("current Score",handValue)
+            //doing stuff with nessaryValues
+            for i in 0...4{
+                necessaryValuesCopy[i] = hand[i]
+            }
+            //making and removing known cards from deckCopy
+            for i in 1...52{
+                deckCopy.append(i)
+            }
+            for i in 0...hand.count-1{
+                let location = deckCopy.firstIndex(of: hand[i])
+                deckCopy.remove(at: location ?? 0)
+            }
+            if visibleCards != [] {
+                for i in 0...visibleCards.count-1{
+                    let location = deckCopy.firstIndex(of: visibleCards[i])
+                    deckCopy.remove(at: location!)
+                }
+            }
+            //looking thrue all combonations of replaced cards
+            for i in 0...31{
+                var iShifted: Int = i
+                var bitCount = 0
+                for bitChecked in 0...4{
+                    bitmap[bitChecked] = iShifted%2
+                    iShifted = iShifted/2
+                    bitCount += bitmap[bitChecked]
+                }
+                allBitmaps.append(contentsOf: bitmap)
+                
+                if bitCount > 3{
+                    comboScoreResults.append(0)
+                    isComboUsefull.append(0)
+                }else{
+                    for _ in 0...99{
+                        //finds replacement cards for that test and removes them from deck temperalaly
+                        //total of 3 cards
+                        
+                        //card 1
+                        let replaceCard1 = singleCardDealer(usedDeck: deckCopy, isItGlobal: false)
+                        let location1 = deckCopy.firstIndex(of: replaceCard1)
+                        deckCopy.remove(at: location1!)
+                        //card 2
+                        let replaceCard2 = singleCardDealer(usedDeck: deckCopy, isItGlobal: false)
+                        let location2 = deckCopy.firstIndex(of: replaceCard2)
+                        deckCopy.remove(at: location2!)
+                        //card 3
+                        let replaceCard3 = singleCardDealer(usedDeck: deckCopy, isItGlobal: false)
+                        let location3 = deckCopy.firstIndex(of: replaceCard3)
+                        deckCopy.remove(at: location3!)
+                        //replaceinhg cards
+                        for m in 0...4{
+                            var replacementNumber = 1
+                            
+                            if bitmap[m] == 1{
+                                 
+                                if replacementNumber == 1{
+                                    hand[m] = replaceCard1
+                                    replacementNumber += 1
+                                }
+                                if replacementNumber == 2{
+                                    hand[m] = replaceCard2
+                                    replacementNumber += 1
+                                }
+                                if replacementNumber == 3{
+                                    hand[m] = replaceCard3
+                                    replacementNumber += 1
+                                }
+                            }
+                        }//M-loop Close
+                        //averaging results from M-loop
+                        let score = cardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4])
+                        avrageScore += score
+                        //reseting deckCopy and hand
+                        deckCopy.append(replaceCard1)
+                        deckCopy.append(replaceCard2)
+                        deckCopy.append(replaceCard3)
+                        
+                        hand = handExtra
+                        
+                    }//_-loop close
+                    avrageScore /= 100
+                    comboScoreResults.append(avrageScore)
+                    isComboUsefull.append(1)
+                }//else close
+                
+            }//i-loop close
+            //allBitmaps has 32 entries of 5 or 160 total entries
+            // there is 32 posible entries of 5
+            for bitmapNumber in 0...31{
+                notHappning = false
+                for i in 0...4{
+                    bitmap[i] = allBitmaps[bitmapNumber*5+i]
+                }
+                if isComboUsefull[bitmapNumber] == 0{
+                  //bitmap is useless
+                }else if isComboUsefull[bitmapNumber] == 1{
+                    //bitmap could be usefull
+                    //how good is the bitmap?
+                    if comboScoreResults[bitmapNumber] < handValue{
+                        //combo is worce than current hand
+                    }else{
+                        //bitmap produces results better then current hand
+                        //findes all cards to replace
+                        for i in 0...bitmap.count-1{
+                                if bitmap[i] == 1{
+                                    locations.append(i)
+                                }
+                        }
+                        if importentCardLocation != [] && locations.count != 0{
+                            for i in 0...locations.count-1{
+                                for n in 0...importentCardLocation.count-1{
+                                    if locations[i] == importentCardLocation[n]{
+                                        notHappning = true
+                                    }
+                                }
+                            }
+                        }
+                        if bestBitmapScore < comboScoreResults[bitmapNumber]{
+                                if notHappning != true{
+                                //best Bitmap
+                                    print("best bitmap numbers",bestBitmap, "score",bestBitmapScore)
+                                    bestBitmapScore = comboScoreResults[bitmapNumber]
+                                    necessaryValuesCopy[14] = bestBitmapScore
+                                    bestBitmap.removeAll()
+                                    for a in 0...4{
+                                        bestBitmap.append(bitmap[a])
+                                    }
+                                    print("new Best Bitmap", bestBitmap, "score", bestBitmapScore)
+                                    print("probility",locations)
+                                    for locationInLocations in 0...locations.count-1{
+                                        necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
+                                }
+                            }//nothappning end
+                        }//bestbitmap end
+                        locations.removeAll()
+                    }//score else end
+                }//usefull else end
+            }//i-loop end
         }
-        //making and removing known cards from deckCopy
+        return necessaryValuesCopy
+    }
+    
+    func preventer(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>){
+        var hand = [card5,card4,card3,card2,card1]
+        var deckCopy =  [Int]()
+        var highCardNumber = [Int]()
+        var highCardLocation = [Int]()
+        //recreating the deck
         for i in 1...52{
             deckCopy.append(i)
         }
+        //removing known cards form the deck
         for i in 0...hand.count-1{
             let location = deckCopy.firstIndex(of: hand[i])
             deckCopy.remove(at: location ?? 0)
@@ -336,120 +487,36 @@ class AI {
                 deckCopy.remove(at: location!)
             }
         }
-        //looking thrue all combonations of replaced cards
-        for i in 0...31{
-            var iShifted: Int = i
-            var bitCount = 0
-            for bitChecked in 0...4{
-                bitmap[bitChecked] = iShifted%2
-                iShifted = iShifted/2
-                bitCount += bitmap[bitChecked]
+        //we need to find whitch cards would give us the win
+        //ways we can do it.
+        //the more unlikly thing to happen could win
+        //having the highests of card
+            //find our highest card
+        hand.sort(by: >)
+        for i in 0...hand.count-1{
+            if (hand[i]%13) > 8 || (hand[i]%13)  <= 1{
+                //found cards higher then 8
+                highCardNumber.append(hand[i])
+                highCardLocation.append(i)
             }
-            allBitmaps.append(contentsOf: bitmap)
-            
-            if bitCount > 3{
-                comboScoreResults.append(0)
-                isComboUsefull.append(0)
-            }else{
-                for _ in 0...99{
-                    //finds replacement cards for that test and removes them from deck temperalaly
-                    //total of 3 cards
-                    
-                    //card 1
-                    let replaceCard1 = singleCardDealer(usedDeck: deckCopy, isItGlobal: false)
-                    let location1 = deckCopy.firstIndex(of: replaceCard1)
-                    deckCopy.remove(at: location1!)
-                    //card 2
-                    let replaceCard2 = singleCardDealer(usedDeck: deckCopy, isItGlobal: false)
-                    let location2 = deckCopy.firstIndex(of: replaceCard2)
-                    deckCopy.remove(at: location2!)
-                    //card 3
-                    let replaceCard3 = singleCardDealer(usedDeck: deckCopy, isItGlobal: false)
-                    let location3 = deckCopy.firstIndex(of: replaceCard3)
-                    deckCopy.remove(at: location3!)
-                    //replaceinhg cards
-                    for m in 0...4{
-                        var replacementNumber = 1
-                        
-                        if bitmap[m] == 1{
-                             
-                            if replacementNumber == 1{
-                                hand[m] = replaceCard1
-                                replacementNumber += 1
-                            }
-                            if replacementNumber == 2{
-                                hand[m] = replaceCard2
-                                replacementNumber += 1
-                            }
-                            if replacementNumber == 3{
-                                hand[m] = replaceCard3
-                                replacementNumber += 1
-                            }
-                        }
-                    }//M-loop Close
-                    //averaging results from M-loop
-                    let score = cardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4])
-                    avrageScore += score
-                    //reseting deckCopy and hand
-                    deckCopy.append(replaceCard1)
-                    deckCopy.append(replaceCard2)
-                    deckCopy.append(replaceCard3)
-                    
-                    hand = handExtra
-                    
-                }//_-loop close
-                avrageScore /= 100
-                comboScoreResults.append(avrageScore)
-                isComboUsefull.append(1)
-            }//else close
-            
-        }//i-loop close
-        //allBitmaps has 32 entries of 5 or 160 total entries
-        // there is 32 posible entries of 5
-        for bitmapNumber in 0...31{
-            for i in 0...4{
-                bitmap[i] = allBitmaps[bitmapNumber*5+i]
-            }
-            if isComboUsefull[bitmapNumber] == 0{
-              //bitmap is useless
-            }else if isComboUsefull[bitmapNumber] == 1{
-                //bitmap could be usefull
-                //how good is the bitmap?
-                if comboScoreResults[bitmapNumber] < handValue{
-                    //combo is worce than current hand
-                }else{
-                    //bitmap produces results better then current hand
-                    //findes all cards to replace
-                    for i in 0...bitmap.count-1{
-                            if bitmap[i] == 1{
-                                locations.append(i)
-                            }
+        }
+        //find high card's roals in hand
+        if highCardLocation != []{
+            for i in 0...highCardLocation.count-1{
+                hand.remove(at: highCardLocation[i])
+                let highCardScore = cardChecker(cardToCheck: highCardNumber[i], card2: hand[0], card3: hand[1], card4: hand[2], card5: hand[3])
+                hand.append(highCardNumber[i])
+                if highCardScore != 0{
+                    //card is doing something
+                    if highCardScore >= 2{
+                        //vary importent
+                        importentCardLocation.append(highCardLocation[i])
+                        //tries to prevent AI from going down from a meaningfull level
                     }
-                    if bestBitmapScore < comboScoreResults[bitmapNumber]{
-                            if locations.count != 0{
-                            //best Bitmap
-                                print("best bitmap numbers",bestBitmap, "score",bestBitmapScore)
-                                bestBitmapScore = comboScoreResults[bitmapNumber]
-                                necessaryValuesCopy[14] = bestBitmapScore
-                                bestBitmap.removeAll()
-                                for a in 0...4{
-                                    bestBitmap.append(bitmap[a])
-                                }
-                                print("new Best Bitmap", bestBitmap, "score", bestBitmapScore)
-                                print("probility",locations)
-                                for locationInLocations in 0...locations.count-1{
-                                    necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
-                            }
-                        }
-                    }//bestbitmap end
-                    locations.removeAll()
-                }//score else end
-            }//usefull else end
-        }//i-loop end
-        
-        return necessaryValuesCopy
+                }
+            }
+        }
     }
-    
     
     func singleCardDealer(usedDeck: Array<Int>, isItGlobal: Bool)-> Int{
         var deck = usedDeck
