@@ -16,6 +16,7 @@ class Number_of_people: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         update()
+        
     }
     
     

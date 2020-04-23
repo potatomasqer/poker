@@ -17,18 +17,12 @@ class AI {
     var AICards = [Int]()
     var endChoice = 0
     var deck = [Int]()
-    var nessaryValues = [Int]()
     var importentCardLocation = [Int]()
     
     init() {
         AICards  = [0,0,0,0,0]
         endChoice = 0
         importentCardLocation = []
-         //DO NOT SORT
-         // location of stuff
-         //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
-        nessaryValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
     }
     init(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int) {
         AICards = [card1,card2,card3,card4,card5]
@@ -51,9 +45,7 @@ class AI {
                    let AICValuatorArray = [AIC1, AIC2, AIC3, AIC4, AIC5]
                    var amountOfParedCards = 0
                    // addiong stuff to nessary values
-            for i in 0...4{
-                nessaryValues[i+5] = AICValuatorArray[i]
-            }
+
             
             for i in 0...4{
                 if AICValuatorArray[i] == 6{
@@ -305,7 +297,7 @@ class AI {
             
 
     
-    func cardRemover(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>,needToRemoveCards: Bool)-> Array<Int>{
+    func cardRemover(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>,nessaryValues: Array <Int>, needToRemoveCards: Bool)-> Array<Int>{
         var necessaryValuesCopy = nessaryValues
         //only dose this if required
         if needToRemoveCards == true{
