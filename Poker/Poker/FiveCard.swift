@@ -13,8 +13,12 @@ class FiveCard: UIViewController {
     var aiControler = AI()
     var gameDeck = [Int]()
     var numberOfPlayers = 2
+    var numberOfActivePlayers = 0
+    var activePlayers = [Int]()
+    var noBetRaise = false
     var whatTurnIsIt = 1
     var whatRoundIsIt = 1
+    var globalVisableCards = [Int]()
     //local varables
     //human player
     //cards
@@ -24,6 +28,7 @@ class FiveCard: UIViewController {
     var hCard4 = 0
     var hCard5 = 0
     var hHand = [Int]()
+    var hTotalBet = 0
     //choice
     //1 fold 2 call 3 raise
     var hChoice = 0
@@ -31,65 +36,48 @@ class FiveCard: UIViewController {
     //AI's max of 6 AI's
     //AI 1
     //cards
-    var AI1Card1 = 0
-    var AI1Card2 = 0
-    var AI1Card3 = 0
-    var AI1Card4 = 0
-    var AI1Card5 = 0
     var AI1Hand = [Int]()
-    
+    var AITotalBet1 = 0
+    var AIChoice1 = 0
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI1VisableCards = [Int]()
     
     //AI 2
-    var AI2Card1 = 0
-    var AI2Card2 = 0
-    var AI2Card3 = 0
-    var AI2Card4 = 0
-    var AI2Card5 = 0
     var AI2Hand = [Int]()
+    var AITotalBet2 = 0
+    var AIChoice2 = 0
     
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI2Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI2VisableCards = [Int]()
-
+    
+    
     //AI 3
-    var AI3Card1 = 0
-    var AI3Card2 = 0
-    var AI3Card3 = 0
-    var AI3Card4 = 0
-    var AI3Card5 = 0
     var AI3Hand = [Int]()
+    var AITotalBet3 = 0
+    var AIChoice3 = 0
     
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI3Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI3VisableCards = [Int]()
 
     //AI 4
-    var AI4Card1 = 0
-    var AI4Card2 = 0
-    var AI4Card3 = 0
-    var AI4Card4 = 0
-    var AI4Card5 = 0
     var AI4Hand = [Int]()
-    
+    var AITotalBet4 = 0
+    var AIChoice4 = 0
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI4Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI4VisableCards = [Int]()
 
     //AI 5
-    var AI5Card1 = 0
-    var AI5Card2 = 0
-    var AI5Card3 = 0
-    var AI5Card4 = 0
-    var AI5Card5 = 0
     var AI5Hand = [Int]()
+    var AITotalBet5 = 0
     
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI5Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI5VisableCards = [Int]()
-
+    var AIChoice5 = 0
     //outlets
     
     override func viewDidLoad() {
@@ -147,43 +135,69 @@ class FiveCard: UIViewController {
             AI5Hand.append(contentsOf: aiControler.fullHandDealer(deck: gameDeck, isItGlobal: true))
             gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
         }
-         AI1Card1 = AI1Hand[0]
-         AI1Card2 = AI1Hand[1]
-         AI1Card3 = AI1Hand[2]
-         AI1Card4 = AI1Hand[3]
-         AI1Card5 = AI1Hand[4]
-        
-         AI2Card1 = AI2Hand[0]
-         AI2Card2 = AI2Hand[1]
-         AI2Card3 = AI2Hand[2]
-        AI2Card4 = AI2Hand[3]
-         AI2Card5 = AI2Hand[4]
-        
-        AI3Card1 = AI3Hand[0]
-        AI3Card2 = AI3Hand[1]
-        AI3Card3 = AI3Hand[2]
-        AI3Card4 = AI3Hand[3]
-        AI3Card5 = AI3Hand[4]
-        
-        AI4Card1 = AI4Hand[0]
-        AI4Card2 = AI4Hand[1]
-        AI4Card3 = AI4Hand[2]
-        AI4Card4 = AI4Hand[3]
-        AI4Card5 = AI4Hand[4]
-        
-        AI5Card1 = AI5Hand[0]
-        AI5Card2 = AI5Hand[1]
-        AI5Card3 = AI5Hand[2]
-        AI5Card4 = AI5Hand[3]
-        AI5Card5 = AI5Hand[4]
     }
-    @IBAction func gameStart(_ sender: UIButton) {
+    
+    
+    func gameStart() {
+        //on game start we want to first start to play animations of plyer geting cards
+        //cards will be randomized and handed out to player and computers
+        //step one
+        //pass out cards to players
+        //step two
+        //get choice from player
+        //step three
+        //pass it on to the next player
+        
+        //sets up a
+        numberOfActivePlayers = numberOfPlayers
+        //gives player id's
         for i in 1...numberOfPlayers{
-            // 1 human 2 ai1 3 ai2...
-            
+            activePlayers.append(i)
+        }
+        while numberOfActivePlayers < 1 || noBetRaise != true{
+            for i in 0...numberOfPlayers-1{
+                // 0 human 1 ai1 2 ai2...
+                whatTurnIsIt = i
+                if i == 0{
+                    //human turn
+                    //wait for choice..
+                    //actions
+                    //includes 3 options for the player that trigger flags and moves on
+                    //if it is round one then card actions become avalable
+                    //cards are images you can interact with on the first round
+                    //you can slect up to 3 cards to throw away.
+                    if whatRoundIsIt == 1{
+                        //first round
+                        
+                    }
+                    
+                }else if i == 1{
+                    //Ai 1
+                    //check handvalue
+                    AI1Values[10] = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
+                    if whatRoundIsIt == 1{
+                      AI1Values  =  aiControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AI1Values[10], visibleCards: AI1VisableCards, nessaryValues: AI1Values, needToRemoveCards: true)
+                    }else if whatRoundIsIt != 1{
+                        
+                    }
+                    //AI turn end
+                    if whatRoundIsIt == 1{
+                        for i in 0...2{
+                            AI1Values[11+i] = aiControler.singleCardDealer(usedDeck: gameDeck, isItGlobal: true)
+                            gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+                        }
+                    }
+                }
+            }
+            whatRoundIsIt += 1
+        }
+        if numberOfActivePlayers == 1{
+            //end game with active player as winner
         }
     }
     
     
-    
+    func CardPlacer(cardNumber: Int, CardPicture: UIImageView){
+        
+    }
 }

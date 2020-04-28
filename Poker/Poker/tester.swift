@@ -118,7 +118,7 @@ class tester: UIViewController {
         allCardValue.text = String(AllCardValue)
      
         
-        nessaryValues = AIController.cardRemover(card1: AICard1, card2: AICard2, card3: AICard3, card4: AICard4, card5: AICard5, handValue: AllCardValue, visibleCards: [], needToRemoveCards: true)
+        nessaryValues = AIController.cardRemover(card1: AICard1, card2: AICard2, card3: AICard3, card4: AICard4, card5: AICard5, handValue: AllCardValue, visibleCards: [], nessaryValues: nessaryValues, needToRemoveCards: true)
         print("duping check",nessaryValues, nessaryValues.count)
         cardToRemove1.text = String(nessaryValues[11])
         cardToRemove2.text = String(nessaryValues[12])
