@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import CoreML
-
-
 
 class AI {
     

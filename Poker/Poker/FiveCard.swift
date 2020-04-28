@@ -198,6 +198,75 @@ class FiveCard: UIViewController {
     
     
     func CardPlacer(cardNumber: Int, CardPicture: UIImageView){
+        let cardType = cardNumber%13+1
+        let cardSuit = cardNumber/13
+        if cardSuit == 1{
+            //club
+            if cardType == 1{CardPicture.image = UIImage(named: "clubAce")}
+            else if cardType == 2{CardPicture.image = UIImage(named: "club2")}
+            else if cardType == 3{CardPicture.image = UIImage(named: "club3")}
+            else if cardType == 4{CardPicture.image = UIImage(named: "club4")}
+            else if cardType == 5{CardPicture.image = UIImage(named: "club5")}
+            else if cardType == 6{CardPicture.image = UIImage(named: "club6")}
+            else if cardType == 7{CardPicture.image = UIImage(named: "club7")}
+            else if cardType == 8{CardPicture.image = UIImage(named: "club8")}
+            else if cardType == 9{CardPicture.image = UIImage(named: "club9")}
+            else if cardType == 10{CardPicture.image = UIImage(named: "club10")}
+            else if cardType == 11{CardPicture.image = UIImage(named: "clubJack")}
+            else if cardType == 12{CardPicture.image = UIImage(named: "clubQueen")}
+            else if cardType == 13{CardPicture.image = UIImage(named: "clubKing")}
+            
+            
+        }else if cardSuit == 2{
+            //diamond
+            if cardType == 1{CardPicture.image = UIImage(named: "diamondAce")}
+            else if cardType == 2{CardPicture.image = UIImage(named: "diamond2")}
+            else if cardType == 3{CardPicture.image = UIImage(named: "diamond3")}
+            else if cardType == 4{CardPicture.image = UIImage(named: "diamond4")}
+            else if cardType == 5{CardPicture.image = UIImage(named: "diamond5")}
+            else if cardType == 6{CardPicture.image = UIImage(named: "diamond6")}
+            else if cardType == 7{CardPicture.image = UIImage(named: "diamond7")}
+            else if cardType == 8{CardPicture.image = UIImage(named: "diamond8")}
+            else if cardType == 9{CardPicture.image = UIImage(named: "diamond9")}
+            else if cardType == 10{CardPicture.image = UIImage(named: "diamond10")}
+            else if cardType == 11{CardPicture.image = UIImage(named: "diamondJack")}
+            else if cardType == 12{CardPicture.image = UIImage(named: "diamondQueen")}
+            else if cardType == 13{CardPicture.image = UIImage(named: "diamondKing")}
+            
+            
+        }else if cardSuit == 3{
+            //hearts
+            if cardType == 1{CardPicture.image = UIImage(named: "heartAce")}
+            else if cardType == 2{CardPicture.image = UIImage(named: "heart2")}
+            else if cardType == 3{CardPicture.image = UIImage(named: "heart3")}
+            else if cardType == 4{CardPicture.image = UIImage(named: "heart4")}
+            else if cardType == 5{CardPicture.image = UIImage(named: "heart5")}
+            else if cardType == 6{CardPicture.image = UIImage(named: "heart6")}
+            else if cardType == 7{CardPicture.image = UIImage(named: "heart7")}
+            else if cardType == 8{CardPicture.image = UIImage(named: "heart8")}
+            else if cardType == 9{CardPicture.image = UIImage(named: "heart9")}
+            else if cardType == 10{CardPicture.image = UIImage(named: "heart10")}
+            else if cardType == 11{CardPicture.image = UIImage(named: "heartJack")}
+            else if cardType == 12{CardPicture.image = UIImage(named: "heartQueen")}
+            else if cardType == 13{CardPicture.image = UIImage(named: "heartKing")}
+            
+        }else {
+            //spades
+            if cardType == 1{CardPicture.image = UIImage(named: "spadeAce")}
+            else if cardType == 2{CardPicture.image = UIImage(named: "spade2")}
+            else if cardType == 3{CardPicture.image = UIImage(named: "spade3")}
+            else if cardType == 4{CardPicture.image = UIImage(named: "spade4")}
+            else if cardType == 5{CardPicture.image = UIImage(named: "spade5")}
+            else if cardType == 6{CardPicture.image = UIImage(named: "spade6")}
+            else if cardType == 7{CardPicture.image = UIImage(named: "spade7")}
+            else if cardType == 8{CardPicture.image = UIImage(named: "spade8")}
+            else if cardType == 9{CardPicture.image = UIImage(named: "spade9")}
+            else if cardType == 10{CardPicture.image = UIImage(named: "spade10")}
+            else if cardType == 11{CardPicture.image = UIImage(named: "spadeJack")}
+            else if cardType == 12{CardPicture.image = UIImage(named: "spadeQueen")}
+            else if cardType == 13{CardPicture.image = UIImage(named: "spadeKing")}
+
+        }
         
     }
 }
