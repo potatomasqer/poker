@@ -183,8 +183,10 @@ class FiveCard: UIViewController {
                     //AI turn end
                     if whatRoundIsIt == 1{
                         for i in 0...2{
-                            AI1Values[11+i] = aiControler.singleCardDealer(usedDeck: gameDeck, isItGlobal: true)
-                            gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+                            if AI1Values[11+i] != 0{
+                                AI1Values[11+i] = aiControler.singleCardDealer(usedDeck: gameDeck, isItGlobal: true)
+                                gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+                            }
                         }
                     }
                 }
