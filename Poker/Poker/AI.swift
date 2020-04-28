@@ -446,9 +446,11 @@ class AI {
                                     }
                                     print("new Best Bitmap", bestBitmap, "score", bestBitmapScore)
                                     print("probility",locations)
-                                    for locationInLocations in 0...locations.count-1{
-                                        necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
-                                }
+                                    if locations.count != 0{
+                                        for locationInLocations in 0...locations.count-1{
+                                                necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
+                                        }
+                                    }
                             }//nothappning end
                         }//bestbitmap end
                         locations.removeAll()

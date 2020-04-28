@@ -148,7 +148,7 @@ class FiveCard: UIViewController {
         //step three
         //pass it on to the next player
         
-        //sets up a
+        //sets up a changing varable
         numberOfActivePlayers = numberOfPlayers
         //gives player id's
         for i in 1...numberOfPlayers{
@@ -175,20 +175,25 @@ class FiveCard: UIViewController {
                     //Ai 1
                     //check handvalue
                     AI1Values[10] = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
+                    let oldHandValue = AI1Values[10]
                     if whatRoundIsIt == 1{
                       AI1Values  =  aiControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AI1Values[10], visibleCards: AI1VisableCards, nessaryValues: AI1Values, needToRemoveCards: true)
+                        for i in 0...2{
+                            if AI1Values[11+i] != 0{
+                                AI1Hand[AI1Values[11+i]] = aiControler.singleCardDealer(usedDeck: gameDeck, isItGlobal: true)
+                                gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+                            }
+                        }
+                        //recheck hand value
+                        let newHandValue = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
+                        if newHandValue >= oldHandValue{
+                            //better or equel to
+                            //stay in game
+                        }
                     }else if whatRoundIsIt != 1{
                         
                     }
                     //AI turn end
-                    if whatRoundIsIt == 1{
-                        for i in 0...2{
-                            if AI1Values[11+i] != 0{
-                                AI1Values[11+i] = aiControler.singleCardDealer(usedDeck: gameDeck, isItGlobal: true)
-                                gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
-                            }
-                        }
-                    }
                 }
             }
             whatRoundIsIt += 1
@@ -198,8 +203,9 @@ class FiveCard: UIViewController {
         }
     }
     
-    
-    func CardPlacer(cardNumber: Int, CardPicture: UIImageView){
+    func betterThenOponent(hand:Array<Int>,handValue:Int,visableCards:Array<Int>)->Bool{
+        //avarge 3??
         
+        return true
     }
 }

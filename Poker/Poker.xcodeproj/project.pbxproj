@@ -23,6 +23,7 @@
 		AEA7A4E923F465170036E5FC /* sevenStud.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7A4E823F465170036E5FC /* sevenStud.swift */; };
 		AEA7A4EB23F465290036E5FC /* chinese.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7A4EA23F465290036E5FC /* chinese.swift */; };
 		AEAC4748240043A800D07F49 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAC4747240043A800D07F49 /* AI.swift */; };
+		FD433EB72458ACFC00087CAB /* MTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD433EB62458ACFC00087CAB /* MTU.swift */; };
 		FDF851F52423D81A00564472 /* tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF851F42423D81A00564472 /* tester.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		AEA7A4E823F465170036E5FC /* sevenStud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sevenStud.swift; sourceTree = "<group>"; };
 		AEA7A4EA23F465290036E5FC /* chinese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chinese.swift; sourceTree = "<group>"; };
 		AEAC4747240043A800D07F49 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
+		FD433EB62458ACFC00087CAB /* MTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTU.swift; sourceTree = "<group>"; };
 		FDF851F42423D81A00564472 /* tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tester.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 				AE7A182623F31E3B00318456 /* BlackJack.swift */,
 				AE7A182823F31E6400318456 /* TexasHoldum.swift */,
 				AE7A182A23F31E7700318456 /* FiveCard.swift */,
+				FD433EB62458ACFC00087CAB /* MTU.swift */,
 				AE7A182C23F31E8A00318456 /* ThreeCard.swift */,
 				AEA7A4E623F465040036E5FC /* StraightPoker.swift */,
 				AEA7A4E823F465170036E5FC /* sevenStud.swift */,
@@ -242,6 +245,7 @@
 				AE7A182D23F31E8A00318456 /* ThreeCard.swift in Sources */,
 				AE2571B023F1C2900099B013 /* AppDelegate.swift in Sources */,
 				AE2571B223F1C2900099B013 /* SceneDelegate.swift in Sources */,
+				FD433EB72458ACFC00087CAB /* MTU.swift in Sources */,
 				AE7A182723F31E3B00318456 /* BlackJack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

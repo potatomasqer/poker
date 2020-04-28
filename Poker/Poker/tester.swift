@@ -12,7 +12,7 @@ class tester: UIViewController {
     //varibles
     var AIController = AI()
     var deck = [Int]()
-    var nessaryValues = [Int]()
+    var nessaryValues = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
     var AICard1 = 0
     var AICard2 = 0
