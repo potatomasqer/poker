@@ -29,6 +29,7 @@ class FiveCard: UIViewController {
     var hCard5 = 0
     var hHand = [Int]()
     var hTotalBet = 0
+    var hCashLeft = 0
     //choice
     //1 fold 2 call 3 raise
     var hChoice = 0
@@ -38,6 +39,7 @@ class FiveCard: UIViewController {
     //cards
     var AI1Hand = [Int]()
     var AITotalBet1 = 0
+    var AI1Cashleft = 0
     var AIChoice1 = 0
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -46,6 +48,7 @@ class FiveCard: UIViewController {
     //AI 2
     var AI2Hand = [Int]()
     var AITotalBet2 = 0
+    var AI2Cashleft = 0
     var AIChoice2 = 0
     
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
@@ -56,6 +59,7 @@ class FiveCard: UIViewController {
     //AI 3
     var AI3Hand = [Int]()
     var AITotalBet3 = 0
+    var AI3Cashleft = 0
     var AIChoice3 = 0
     
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
@@ -65,6 +69,7 @@ class FiveCard: UIViewController {
     //AI 4
     var AI4Hand = [Int]()
     var AITotalBet4 = 0
+    var AI4Cashleft = 0
     var AIChoice4 = 0
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI4Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -73,6 +78,7 @@ class FiveCard: UIViewController {
     //AI 5
     var AI5Hand = [Int]()
     var AITotalBet5 = 0
+    var AI5Cashleft = 0
     
     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI5Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -169,6 +175,14 @@ class FiveCard: UIViewController {
                     if whatRoundIsIt == 1{
                         //first round
                         
+                    }else{
+                        //it is not the first round
+                        // 3 options rase call fold
+                        //rase rases the pot by x amount
+                        //call rases your bet to the current amount
+                            //if you dont call you are forced to fold
+                            //if you dont have any mony not in the pot you are all in
+                        //fold shows your cards and kiks you out of the game
                     }
                     
                 }else if i == 1{
@@ -189,11 +203,14 @@ class FiveCard: UIViewController {
                         if newHandValue >= oldHandValue{
                             //better or equel to
                             //stay in game
+                            AIChoice1 = 2
+                        }else{
+                            
                         }
                     }else if whatRoundIsIt != 1{
                         
                     }
-                    //AI turn end
+                    //AI1 turn end
                 }
             }
             whatRoundIsIt += 1
