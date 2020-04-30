@@ -452,6 +452,7 @@ class AI {
                                         }
                                     }
                             }//nothappning end
+                            notHappning = false
                         }//bestbitmap end
                         locations.removeAll()
                     }//score else end
