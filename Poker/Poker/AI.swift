@@ -50,20 +50,20 @@ class AI {
             for i in 0...4{
                 if AICValuatorArray[i] == 6{
                     //streight flush
-                    return 55
+                    return 10
                     
                 }
                 if AICValuatorArray[i] == 5{
                     //quad
-                    return 50
+                    return 85
                 }
                 if AICValuatorArray[i] == 4{
                     //flush
-                    return 33
+                    return 65
                 }
                 if AICValuatorArray[i] == 3{
                     //streight
-                    return 22
+                    return 55
                 }
                 if AICValuatorArray[i] == 2{
                     //tripplet
@@ -71,9 +71,9 @@ class AI {
                         if n != i{
                             if AICValuatorArray[n] == 1{
                              //full house
-                                return 40
+                                return 75
                             }
-                            return 13
+                            return 50
                         }
                     }
                 }
@@ -86,10 +86,10 @@ class AI {
                 }
             if amountOfParedCards == 4{
                     //dubble pair
-                    return 8
+                    return 35
                 }else if amountOfParedCards == 2{
                     // pair
-                    return 4
+                    return 15
             }
         }else if card4 != 0 {
                 
@@ -239,7 +239,11 @@ class AI {
         var amountFlushedWith = 0
             
         
-
+        
+        if  AIStraightChecker[0]-1 == AIStraightChecker[1] && AIStraightChecker[1]-1 == AIStraightChecker[2] && AIStraightChecker[2]-1 == AIStraightChecker[3] && AIStraightChecker[3]-1 == AIStraightChecker[4]{
+            //findes straight
+            foundStraight = true
+        }
             for i in 0...3{
                 
                 
@@ -256,12 +260,6 @@ class AI {
                         amountFlushedWith += 1
                         
                     }
-                    
-                    if  AIStraightChecker[0]-1 == AIStraightChecker[1] && AIStraightChecker[1]-1 == AIStraightChecker[2] && AIStraightChecker[2]-1 == AIStraightChecker[3] && AIStraightChecker[3]-1 == AIStraightChecker[4]{
-                        //findes straight
-                        foundStraight = true
-                    }
-                    
         }
                 
                 // results to return
@@ -489,8 +487,8 @@ class AI {
             //find our highest card
         hand.sort(by: >)
         for i in 0...hand.count-1{
-            if (hand[i]%13) > 8 || (hand[i]%13)  <= 1{
-                //found cards higher then 8
+            if (hand[i]%13) > 11 || (hand[i]%13)  < 1{
+                //found cards higher then 11
                 highCardNumber.append(hand[i])
                 highCardLocation.append(i)
             }

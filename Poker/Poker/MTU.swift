@@ -11,6 +11,7 @@ import UIKit
 class MTU: UIViewController {
     var AIController = AI()
     var deck = [Int]()
+    var backupDeck = [Int]()
     var hand = [Int]()
     var allHandValues = [Int]()
     var AI1hand = [0,0,0,0,0,0]
@@ -24,17 +25,23 @@ class MTU: UIViewController {
             deck.append(i)
             }
         }
+        backupDeck = deck
         
         for _ in  0...9999{
             hand = AIController.fullHandDealer(deck: deck, isItGlobal: false)
             AI1Values = AIController.cardRemover(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4], handValue: AIController.cardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4]), visibleCards: [], nessaryValues: AI1Values, needToRemoveCards: true)
             let removalValues = [AI1Values[11]-1,  AI1Values[12]-1, AI1Values[13]-1]
+            for i in 0...4{
+                let removed = deck.firstIndex(of: hand[i])
+                deck.remove(at: removed!)
+            }
             for i in 0...2{
                 hand[removalValues[i]] = AIController.singleCardDealer(usedDeck: deck, isItGlobal: false)
             }
             let value = modedCardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4])
             allHandValues.append(value)
             print(value)
+            deck = backupDeck
         }
         for i in 0...allHandValues.count-1{
             print(allHandValues[i])
@@ -42,7 +49,7 @@ class MTU: UIViewController {
     }
     func modedCardValuator(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
             
-            let AIC1 = AIController.cardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+                   let AIC1 = AIController.cardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
                    let AIC2 = AIController.cardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
                    let AIC3 = AIController.cardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
                    let AIC4 = AIController.cardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
@@ -50,7 +57,6 @@ class MTU: UIViewController {
                    
                    let AICValuatorArray = [AIC1, AIC2, AIC3, AIC4, AIC5]
                    var amountOfParedCards = 0
-                   // addiong stuff to nessary values
 
             
             for i in 0...4{
