@@ -174,16 +174,39 @@ class FiveCard: UIViewController {
                     //you can slect up to 3 cards to throw away.
                     if whatRoundIsIt == 1{
                         //first round
+                        let alert = UIAlertController.init(title: "Cards to remove", message: "Whitch cards do you wish to remove" + "\n" + "you can fill out all or none of the textfields", preferredStyle: .alert)
+                        alert.addTextField()
+                        alert.addTextField()
+                        alert.addTextField()
+                        alert.textFields![0].placeholder = "remove card #"
+                        alert.textFields![1].placeholder = "remove card #"
+                        alert.textFields![2].placeholder = "remove card #"
                         
-                    }else{
-                        //it is not the first round
-                        // 3 options rase call fold
-                        //rase rases the pot by x amount
-                        //call rases your bet to the current amount
-                            //if you dont call you are forced to fold
-                            //if you dont have any mony not in the pot you are all in
-                        //fold shows your cards and kiks you out of the game
+                        
+                        let done = UIAlertAction.init(title: "Done", style: .default) { (UIAlertAction) in
+                            var hRemovedCards = [Int]()
+                            for i in 0...alert.textFields!.count{
+                                if alert.textFields![i].text != ""{
+                                    hRemovedCards.append(Int(alert.textFields![i].text!)!)
+                                }
+                            }
+                            if hRemovedCards.count != 0{
+                                for i in 0...hRemovedCards.count-1{
+                                    self.hHand[hRemovedCards[i]] = self.aiControler.singleCardDealer(usedDeck: self.gameDeck, isItGlobal: true)
+                                    self.gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+                                }
+                            }
+                        }
+                        alert.addAction(done)
+                        present(alert, animated: true)
                     }
+                    // 3 options rase call fold
+                    //rase rases the pot by x amount
+                    //call rases your bet to the current amount
+                    //if you dont call you are forced to fold
+                    //if you dont have any mony not in the pot you are all in
+                    //fold shows your cards and kiks you out of the game
+                    
                     
                 }else if i == 1{
                     //Ai 1
