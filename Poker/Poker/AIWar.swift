@@ -9,6 +9,25 @@
 import UIKit
 
 class AIWar: UIViewController {
+    //outputs
+    @IBOutlet weak var AI1card1: UILabel!
+    @IBOutlet weak var AI1card2: UILabel!
+    @IBOutlet weak var AI1card3: UILabel!
+    @IBOutlet weak var AI1card4: UILabel!
+    @IBOutlet weak var AI1card5: UILabel!
+    
+    
+    @IBOutlet weak var AI2card5: UILabel!
+    @IBOutlet weak var AI2card4: UILabel!
+    @IBOutlet weak var AI2card3: UILabel!
+    @IBOutlet weak var AI2card2: UILabel!
+    @IBOutlet weak var AI2card1: UILabel!
+    
+    @IBOutlet weak var AI1WinText: UILabel!
+    @IBOutlet weak var AI2WinText: UILabel!
+    
+    
+    
     //global
     var AIControler = AI()
     var deck = [Int]()
@@ -19,17 +38,72 @@ class AIWar: UIViewController {
     var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI1Hand = [Int]()
     var AI1VisableCards = [Int]()
+    var AI1Wins = 0
     //AI 2
      //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
     var AI2Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI2Hand = [Int]()
     var AI2VisableCards = [Int]()
+    var AI2Wins = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func playOne(_ sender: UIButton) {
+        for i in 1...52{
+            if i != 0{
+            deck.append(i)
+            }
+        }
+        deckCopy = deck
+        
+        
+        AI1Hand = AIControler.fullHandDealer(deck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        
+        AI2Hand = AIControler.fullHandDealer(deck: deck, isItGlobal: true)
+        deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        //AI 1 defult
+        //AI 2 Custom
+        AI1Values = AIControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI1Values, needToRemoveCards: true)
+        
+        AI2Values = customCardRemover(card1: AI2Hand[0], card2: AI2Hand[1], card3: AI2Hand[2], card4: AI2Hand[3], card5: AI2Hand[4], handValue: customCardValuator(card1: AI2Hand[0], card2: AI2Hand[1], card3: AI2Hand[2], card4: AI2Hand[3], card5: AI2Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI2Values, needToRemoveCards: true)
+        
+        AI1Values[10] = AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
+        AI2Values[10] = AIControler.cardValuator(card1: AI2Hand[0], card2: AI2Hand[1], card3: AI2Hand[2], card4: AI2Hand[3], card5: AI2Hand[4])
+        if AI1Values[10] > AI2Values[10]{
+            //Ai 1 wins
+            AI1Wins += 1
+        }else if AI1Values[10] < AI2Values[10]{
+            //AI 2 wins
+            AI2Wins += 1
+        }else{
+            //they are equal
+            //highcard finder iniation
+            let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
+            let AI2Double = AIControler.highCardDetector(hand: AI2Hand, handValue: AI2Values[10])
+            
+            if AI1Double > AI2Double{
+                AI1Wins += 1
+            }else if AI1Double < AI2Double{
+                AI2Wins += 1
+            }
+        }
+        AI1card1.text = String(AI1Hand[0])
+        AI1card2.text = String(AI1Hand[1])
+        AI1card3.text = String(AI1Hand[2])
+        AI1card4.text = String(AI1Hand[3])
+        AI1card5.text = String(AI1Hand[4])
+        
+        AI2card1.text = String(AI2Hand[0])
+        AI2card2.text = String(AI2Hand[1])
+        AI2card3.text = String(AI2Hand[2])
+        AI2card4.text = String(AI2Hand[3])
+        AI2card5.text = String(AI2Hand[4])
+        
+        AI1WinText.text = String(AI1Wins)
+        AI2WinText.text = String(AI2Wins)
         
     }
     @IBAction func playXTimes(_ sender: Any) {

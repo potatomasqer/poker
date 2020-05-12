@@ -150,6 +150,20 @@
                         <viewLayoutGuide key="safeArea" id="0RO-LU-nce"/>
                     </view>
                     <navigationItem key="navigationItem" id="q82-FG-qZd"/>
+                    <connections>
+                        <outlet property="AI1WinText" destination="dAG-L1-j3D" id="DCf-kz-KV4"/>
+                        <outlet property="AI1card1" destination="A71-fk-mmX" id="Tf7-4Q-73X"/>
+                        <outlet property="AI1card2" destination="6X5-7D-tuV" id="ALm-Uw-ErQ"/>
+                        <outlet property="AI1card3" destination="mV5-sf-Cw3" id="Z1D-pl-RNt"/>
+                        <outlet property="AI1card4" destination="eZN-Oa-Zn8" id="j5J-Lv-aT3"/>
+                        <outlet property="AI1card5" destination="jUl-XW-K0E" id="je6-tv-ZN1"/>
+                        <outlet property="AI2WinText" destination="znV-2q-icm" id="19j-lg-PrE"/>
+                        <outlet property="AI2card1" destination="3Jq-gi-gcG" id="p6i-Dc-xLl"/>
+                        <outlet property="AI2card2" destination="OVR-SE-fxi" id="IjG-Qr-KsH"/>
+                        <outlet property="AI2card3" destination="Mjp-qf-bek" id="sil-cH-DLk"/>
+                        <outlet property="AI2card4" destination="pPb-Qi-YuG" id="0Kc-Up-5nF"/>
+                        <outlet property="AI2card5" destination="h5p-BX-BQu" id="6qe-VA-Z0B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bw6-6j-Sux" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

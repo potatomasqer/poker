@@ -50,7 +50,7 @@ class AI {
             for i in 0...4{
                 if AICValuatorArray[i] == 6{
                     //streight flush
-                    return 10
+                    return 100
                     
                 }
                 if AICValuatorArray[i] == 5{
