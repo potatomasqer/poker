@@ -23,6 +23,7 @@
 		AEA7A4E923F465170036E5FC /* sevenStud.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7A4E823F465170036E5FC /* sevenStud.swift */; };
 		AEAC4748240043A800D07F49 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAC4747240043A800D07F49 /* AI.swift */; };
 		FD433EB72458ACFC00087CAB /* MTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD433EB62458ACFC00087CAB /* MTU.swift */; };
+		FDA7FE76246B14E900617C83 /* AIWar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA7FE75246B14E900617C83 /* AIWar.swift */; };
 		FDF851F52423D81A00564472 /* tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF851F42423D81A00564472 /* tester.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		AEA7A4E823F465170036E5FC /* sevenStud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sevenStud.swift; sourceTree = "<group>"; };
 		AEAC4747240043A800D07F49 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		FD433EB62458ACFC00087CAB /* MTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTU.swift; sourceTree = "<group>"; };
+		FDA7FE75246B14E900617C83 /* AIWar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIWar.swift; sourceTree = "<group>"; };
 		FDF851F42423D81A00564472 /* tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tester.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 		AE2571AE23F1C2900099B013 /* Poker */ = {
 			isa = PBXGroup;
 			children = (
+				FDA7FE75246B14E900617C83 /* AIWar.swift */,
 				AE2571AF23F1C2900099B013 /* AppDelegate.swift */,
 				AE2571B123F1C2900099B013 /* SceneDelegate.swift */,
 				AE2571B323F1C2900099B013 /* ViewController.swift */,
@@ -236,6 +239,7 @@
 				AE7A182523F3147800318456 /* Number of people.swift in Sources */,
 				AEA7A4E923F465170036E5FC /* sevenStud.swift in Sources */,
 				AEAC4748240043A800D07F49 /* AI.swift in Sources */,
+				FDA7FE76246B14E900617C83 /* AIWar.swift in Sources */,
 				AE2571B423F1C2900099B013 /* ViewController.swift in Sources */,
 				AE7A182923F31E6400318456 /* TexasHoldum.swift in Sources */,
 				AE7A182D23F31E8A00318456 /* ThreeCard.swift in Sources */,
