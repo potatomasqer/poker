@@ -776,10 +776,10 @@
         <!--Navigation Controller-->
         <scene sceneID="7Zd-1W-a88">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SbU-fJ-L5U" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="SbU-fJ-L5U" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gJS-Gz-rKC">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

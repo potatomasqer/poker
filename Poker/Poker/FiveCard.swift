@@ -245,7 +245,7 @@ class FiveCard: UIViewController {
     }
     
     func betterThenOponent(hand:Array<Int>,handValue:Int,visableCards:Array<Int>)->Bool{
-        //avarge 3??
+        // top 1/numberOfplayers%
         
         return true
     }

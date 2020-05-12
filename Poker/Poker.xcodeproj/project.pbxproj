@@ -101,6 +101,7 @@
 		AE2571AE23F1C2900099B013 /* Poker */ = {
 			isa = PBXGroup;
 			children = (
+				AEAC4747240043A800D07F49 /* AI.swift */,
 				FDA7FE75246B14E900617C83 /* AIWar.swift */,
 				AE2571AF23F1C2900099B013 /* AppDelegate.swift */,
 				AE2571B123F1C2900099B013 /* SceneDelegate.swift */,
@@ -114,7 +115,6 @@
 				AE7A182C23F31E8A00318456 /* ThreeCard.swift */,
 				AEA7A4E623F465040036E5FC /* StraightPoker.swift */,
 				AEA7A4E823F465170036E5FC /* sevenStud.swift */,
-				AEAC4747240043A800D07F49 /* AI.swift */,
 				AE2571B823F1C2910099B013 /* Assets.xcassets */,
 				AE2571BA23F1C2910099B013 /* LaunchScreen.storyboard */,
 				AE2571BD23F1C2910099B013 /* Info.plist */,
