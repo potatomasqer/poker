@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class FiveCard: UIViewController {
     //univircial varables
     var aiControler = AI()
