@@ -10,61 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     var AIController = AI()
-    
-    
     var typeOfPoker = 0
-    //autosave funcs
-    func senders(){
-    if typeOfPoker == 1{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "blackJack")
-        show(nextVC, sender: self)
-        
-    }else if typeOfPoker == 2{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "TexasHoldum")
-        show(nextVC, sender: self)
-
-    }else if typeOfPoker == 3{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "FiveCard")
-        show(nextVC, sender: self)
-        
-    }else if typeOfPoker == 4{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "ThreeCard")
-        show(nextVC, sender: self)
-        
-    }else if typeOfPoker == 5{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "StraightPoker")
-        show(nextVC, sender: self)
-        
-    }else if typeOfPoker == 6{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "sevenStud")
-        show(nextVC, sender: self)
-        
-    }else if typeOfPoker == 7{
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(identifier: "chinese")
-        show(nextVC, sender: self)
-        
-        }
-        
-    }
-        
     override func viewDidLoad() {
         super.viewDidLoad()
-        //if in match
-        senders()
     }
     let defaults = UserDefaults.standard
         @IBAction func blackjack(_ sender: Any) {
@@ -97,12 +45,5 @@ class ViewController: UIViewController {
         defaults.setValue(typeOfPoker, forKey: "type")
 
     }
-    @IBAction func chinese(_ sender: Any) {
-        typeOfPoker = 7
-        defaults.setValue(typeOfPoker, forKey: "type")
-
-    }
-
-
 }
 
