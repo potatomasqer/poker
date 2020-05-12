@@ -21,7 +21,6 @@
 		AE7A182D23F31E8A00318456 /* ThreeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7A182C23F31E8A00318456 /* ThreeCard.swift */; };
 		AEA7A4E723F465040036E5FC /* StraightPoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7A4E623F465040036E5FC /* StraightPoker.swift */; };
 		AEA7A4E923F465170036E5FC /* sevenStud.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7A4E823F465170036E5FC /* sevenStud.swift */; };
-		AEA7A4EB23F465290036E5FC /* chinese.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7A4EA23F465290036E5FC /* chinese.swift */; };
 		AEAC4748240043A800D07F49 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEAC4747240043A800D07F49 /* AI.swift */; };
 		FD433EB72458ACFC00087CAB /* MTU.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD433EB62458ACFC00087CAB /* MTU.swift */; };
 		FDF851F52423D81A00564472 /* tester.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF851F42423D81A00564472 /* tester.swift */; };
@@ -56,7 +55,6 @@
 		AE7A182C23F31E8A00318456 /* ThreeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeCard.swift; sourceTree = "<group>"; };
 		AEA7A4E623F465040036E5FC /* StraightPoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraightPoker.swift; sourceTree = "<group>"; };
 		AEA7A4E823F465170036E5FC /* sevenStud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sevenStud.swift; sourceTree = "<group>"; };
-		AEA7A4EA23F465290036E5FC /* chinese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chinese.swift; sourceTree = "<group>"; };
 		AEAC4747240043A800D07F49 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		FD433EB62458ACFC00087CAB /* MTU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTU.swift; sourceTree = "<group>"; };
 		FDF851F42423D81A00564472 /* tester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tester.swift; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				AE7A182C23F31E8A00318456 /* ThreeCard.swift */,
 				AEA7A4E623F465040036E5FC /* StraightPoker.swift */,
 				AEA7A4E823F465170036E5FC /* sevenStud.swift */,
-				AEA7A4EA23F465290036E5FC /* chinese.swift */,
 				AEAC4747240043A800D07F49 /* AI.swift */,
 				AE2571B823F1C2910099B013 /* Assets.xcassets */,
 				AE2571BA23F1C2910099B013 /* LaunchScreen.storyboard */,
@@ -236,7 +233,6 @@
 				FDF851F52423D81A00564472 /* tester.swift in Sources */,
 				AEA7A4E723F465040036E5FC /* StraightPoker.swift in Sources */,
 				AE7A182B23F31E7700318456 /* FiveCard.swift in Sources */,
-				AEA7A4EB23F465290036E5FC /* chinese.swift in Sources */,
 				AE7A182523F3147800318456 /* Number of people.swift in Sources */,
 				AEA7A4E923F465170036E5FC /* sevenStud.swift in Sources */,
 				AEAC4748240043A800D07F49 /* AI.swift in Sources */,
