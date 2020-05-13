@@ -520,7 +520,7 @@ class AI {
         if isItGlobal == true{
             deck.remove(at: dealtCardLocation)
             let defaults = UserDefaults.standard
-            defaults.set(usedDeck, forKey: "GlobalDeck")
+            defaults.set(deck, forKey: "GlobalDeck")
         }
         return deltCard
     }
