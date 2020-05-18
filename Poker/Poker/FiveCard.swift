@@ -42,7 +42,7 @@ class FiveCard: UIViewController {
     var AITotalBet1 = 0
     var AI1Cashleft = 0
     var AIChoice1 = 0
-    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
+    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
     var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI1VisableCards = [Int]()
     
@@ -52,7 +52,7 @@ class FiveCard: UIViewController {
     var AI2Cashleft = 0
     var AIChoice2 = 0
     
-    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
+    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
     var AI2Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI2VisableCards = [Int]()
     
@@ -63,7 +63,7 @@ class FiveCard: UIViewController {
     var AI3Cashleft = 0
     var AIChoice3 = 0
     
-    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
+    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
     var AI3Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI3VisableCards = [Int]()
 
@@ -72,7 +72,7 @@ class FiveCard: UIViewController {
     var AITotalBet4 = 0
     var AI4Cashleft = 0
     var AIChoice4 = 0
-    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
+    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
     var AI4Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI4VisableCards = [Int]()
 
@@ -81,7 +81,7 @@ class FiveCard: UIViewController {
     var AITotalBet5 = 0
     var AI5Cashleft = 0
     
-    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
+    //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
     var AI5Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI5VisableCards = [Int]()
     var AIChoice5 = 0
@@ -212,27 +212,9 @@ class FiveCard: UIViewController {
                 }else if i == 1{
                     //Ai 1
                     //check handvalue
-                    AI1Values[10] = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
-                    let oldHandValue = AI1Values[10]
                     if whatRoundIsIt == 1{
-                      AI1Values  =  aiControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AI1Values[10], visibleCards: AI1VisableCards, nessaryValues: AI1Values, needToRemoveCards: true)
-                        for i in 0...2{
-                            if AI1Values[11+i] != 0{
-                                AI1Hand[AI1Values[11+i]] = aiControler.singleCardDealer(usedDeck: gameDeck, isItGlobal: true)
-                                gameDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
-                            }
-                        }
-                        //recheck hand value
-                        let newHandValue = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
-                        if newHandValue >= oldHandValue{
-                            //better or equel to
-                            //stay in game
-                            AIChoice1 = 2
-                        }else{
-                            
-                        }
-                    }else if whatRoundIsIt != 1{
-                        
+                        AI1Values[10] = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
+                        aiControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: numberOfPlayers, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: gameDeck, AILV: 1)
                     }
                     //AI1 turn end
                 }

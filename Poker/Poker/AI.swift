@@ -295,10 +295,9 @@ class AI {
             
 
     
-    func cardRemover(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>,nessaryValues: Array <Int>, needToRemoveCards: Bool)-> Array<Int>{
+    func cardRemover(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int, handValue: Int, visibleCards: Array<Int>,nessaryValues: Array <Int>)-> Array<Int>{
         var necessaryValuesCopy = nessaryValues
         //only dose this if required
-        if needToRemoveCards == true{
             preventer(card1: card1, card2: card2, card3: card3, card4: card4, card5: card5, handValue: handValue, visibleCards: visibleCards)
             //visible cards dose not include hand
             var hand = [card5,card4,card3,card2,card1]
@@ -456,7 +455,6 @@ class AI {
                     }//score else end
                 }//usefull else end
             }//i-loop end
-        }
         return necessaryValuesCopy
     }
     
@@ -579,5 +577,133 @@ class AI {
             }
         }
         return Double(handValueCapy) + addedPointValue
+    }
+    
+    func AITurn(hand:Array <Int>,handValue:Int,howManyCardsInHand:Int,howManyPlayers:Int,canRemoveCards:Bool,howManyRemovedCards:Int,visableCards:Array<Int>,nessaryValues:Array<Int>,gameDeck:Array<Int>,AILV:Int){
+        //copying stuf that changes
+        
+        //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
+        var values = nessaryValues
+        var knownDeck = [Int]()
+        var handCopy = hand
+        var UsedDeck = deck
+        //setting up deck
+        for i in 1...52{
+            knownDeck.append(i)
+        }
+        if visableCards.count != 0{
+            for n in 0...visableCards.count-1{
+                let location = knownDeck.firstIndex(of: visableCards[n])!
+                knownDeck.remove(at: location)
+            }
+        }
+        for n in 0...handCopy.count-1{
+            let location = knownDeck.firstIndex(of: handCopy[n])!
+            knownDeck.remove(at: location)
+        }
+        
+        //split quanitiy of cards
+        if howManyCardsInHand == 5{
+            //then this is a 5 card game
+            //games include
+            //5 card draw
+            //blackjack
+            values[10] = modedCardValuator(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4:  handCopy[3], card5: handCopy[4])
+            let oldHandValue = values[10]
+
+            if canRemoveCards == true{
+                values  =  cardRemover(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4], handValue: handCopy[10], visibleCards: visableCards, nessaryValues: values)
+                for i in 0...2{
+                    if values[11+i] != 0{
+                        handCopy[values[11+i]] = singleCardDealer(usedDeck: UsedDeck, isItGlobal: true)
+                        UsedDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+                    }
+                }
+                let newHandValue = modedCardValuator(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4])
+                values[10] = newHandValue
+                
+                if AILV == 1{
+                    if newHandValue < oldHandValue{
+                        //less then pervous
+                        values[15] = 1
+                    }
+                    if newHandValue >= oldHandValue{
+                        //better or equel to
+                        //stay in game
+                        values[15] = 2
+                        //1 fold 2 call 3 raise
+                    }
+                    if newHandValue >= 3{
+                        //top 7%
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+
+                }
+            }
+        }else if howManyCardsInHand == 2{
+            //this is a 2 card game
+            //games include
+            //Texas holdem
+        }
+    }
+    func modedCardValuator(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
+        
+               let AIC1 = cardChecker(cardToCheck: card1, card2: card2, card3: card3, card4: card4, card5: card5)
+               let AIC2 = cardChecker(cardToCheck: card2, card2: card1, card3: card3, card4: card4, card5: card5)
+               let AIC3 = cardChecker(cardToCheck: card3, card2: card2, card3: card1, card4: card4, card5: card5)
+               let AIC4 = cardChecker(cardToCheck: card4, card2: card2, card3: card3, card4: card1, card5: card5)
+               let AIC5 = cardChecker(cardToCheck: card5, card2: card2, card3: card3, card4: card4, card5: card1)
+               
+               let AICValuatorArray = [AIC1, AIC2, AIC3, AIC4, AIC5]
+               var amountOfParedCards = 0
+
+        
+        for i in 0...4{
+            if AICValuatorArray[i] == 6{
+                //streight flush
+                return 9
+                
+            }
+            if AICValuatorArray[i] == 5{
+                //quad
+                return 8
+            }
+            if AICValuatorArray[i] == 4{
+                //flush
+                return 7
+            }
+            if AICValuatorArray[i] == 3{
+                //streight
+                return 5
+            }
+            if AICValuatorArray[i] == 2{
+                //tripplet
+                for n in 0...4{
+                    if n != i{
+                        if AICValuatorArray[n] == 1{
+                         //full house
+                            return 6
+                        }
+                        return 4
+                    }
+                }
+            }
+            if AICValuatorArray[i] == 1{
+                //parir
+            amountOfParedCards += 1
+            }
+            //pares
+            
+            }
+        if amountOfParedCards == 4{
+                //dubble pair
+                return 3
+            }else if amountOfParedCards == 2{
+                // pair
+                return 2
+        }else{
+            return 1
+    }
     }
 }

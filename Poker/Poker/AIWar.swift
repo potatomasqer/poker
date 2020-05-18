@@ -66,7 +66,7 @@ class AIWar: UIViewController {
         deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
         //AI 1 defult
         //AI 2 Custom
-        AI1Values = AIControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI1Values, needToRemoveCards: true)
+        AI1Values = AIControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI1Values)
         for i in 0...2{
             if AI1Values[11+i] != 0{
                 AI1Hand[AI1Values[11+i]] = AIControler.singleCardDealer(usedDeck: deck, isItGlobal: true)
@@ -134,7 +134,7 @@ class AIWar: UIViewController {
             deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
             //AI 1 defult
             //AI 2 Custom
-            AI1Values = AIControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI1Values, needToRemoveCards: true)
+            AI1Values = AIControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI1Values)
             for i in 0...2{
                 if AI1Values[11+i] != 0{
                     AI1Hand[AI1Values[11+i]] = AIControler.singleCardDealer(usedDeck: deck, isItGlobal: true)

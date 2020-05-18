@@ -29,7 +29,7 @@ class MTU: UIViewController {
         
         for _ in  0...9999{
             hand = AIController.fullHandDealer(deck: deck, isItGlobal: false)
-            AI1Values = AIController.cardRemover(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4], handValue: AIController.cardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4]), visibleCards: [], nessaryValues: AI1Values, needToRemoveCards: true)
+            AI1Values = AIController.cardRemover(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4], handValue: AIController.cardValuator(card1: hand[0], card2: hand[1], card3: hand[2], card4: hand[3], card5: hand[4]), visibleCards: [], nessaryValues: AI1Values)
             let removalValues = [AI1Values[11]-1,  AI1Values[12]-1, AI1Values[13]-1]
             for i in 0...4{
                 let removed = deck.firstIndex(of: hand[i])
