@@ -442,10 +442,15 @@ class AI {
                                     }
                                     print("new Best Bitmap", bestBitmap, "score", bestBitmapScore)
                                     print("removal",locations)
+                                    for i in 0...2{
+                                        necessaryValuesCopy[11+i] = 0
+                                    }
+                                    print(necessaryValuesCopy[11],necessaryValuesCopy[12],necessaryValuesCopy[13])
                                     if locations.count != 0{
                                         for locationInLocations in 0...locations.count-1{
                                                 necessaryValuesCopy[11 + locationInLocations] = locations[locationInLocations]+1
                                         }
+                                        print(necessaryValuesCopy[11],necessaryValuesCopy[12],necessaryValuesCopy[13])
                                     }
                             }//nothappning end
                             notHappning = false
@@ -536,56 +541,72 @@ class AI {
     func highCardDetector(hand:Array<Int>,handValue:Int)-> Double{
         //this function findes the highest card and adds a 0.X value to the current value
         var handCopy = hand
-        let handValueCapy = handValue
         var addedPointValue = 0.0
         var cardValues = [Int]()
+        var done = false
         handCopy.sort(by: >)
         //puts all checked cards into array
         for i in 0...handCopy.count-1{
             cardValues.append(cardChecker(cardToCheck: handCopy[i], card2: handCopy[(i+1)%5], card3: handCopy[(i+2)%5], card4: handCopy[(i+3)%5], card5: handCopy[(i+4)%5]))
         }
         for i in 0...handCopy.count-1{
-            if handCopy[i] != 0 && addedPointValue != 0{
-                if handCopy[i]%13 == 1 {
-                    addedPointValue = 0.99
-                }else if handCopy[i]%13 == 0 {
-                    addedPointValue = 0.96
-                }else if handCopy[i]%13 == 12 {
-                    addedPointValue = 0.94
-                }else if handCopy[i]%13 == 11 {
-                    addedPointValue = 0.92
-                }else if handCopy[i]%13 == 10 {
-                    addedPointValue = 0.9
-                }else if handCopy[i]%13 == 9 {
-                    addedPointValue = 0.8
-                }else if handCopy[i]%13 == 8 {
-                    addedPointValue = 0.7
-                }else if handCopy[i]%13 == 7 {
-                    addedPointValue = 0.6
-                }else if handCopy[i]%13 == 6 {
-                    addedPointValue = 0.5
-                }else if handCopy[i]%13 == 5 {
-                    addedPointValue = 0.4
-                }else if handCopy[i]%13 == 4 {
-                    addedPointValue = 0.3
-                }else if handCopy[i]%13 == 3 {
-                    addedPointValue = 0.2
-                }else if handCopy[i]%13 == 2 {
-                    addedPointValue = 0.1
+            while done == false{
+                if handCopy[i] != 0 && cardValues[i] != 0{
+                    if handCopy[i]%13 == 1 {
+                        done = true
+                        addedPointValue = 0.99
+                    }else if handCopy[i]%13 == 0 {
+                        done = true
+                        addedPointValue = 0.96
+                    }else if handCopy[i]%13 == 12 {
+                        done = true
+                        addedPointValue = 0.94
+                    }else if handCopy[i]%13 == 11 {
+                        done = true
+                        addedPointValue = 0.92
+                    }else if handCopy[i]%13 == 10 {
+                        done = true
+                        addedPointValue = 0.9
+                    }else if handCopy[i]%13 == 9 {
+                        done = true
+                        addedPointValue = 0.8
+                    }else if handCopy[i]%13 == 8 {
+                        done = true
+                        addedPointValue = 0.7
+                    }else if handCopy[i]%13 == 7 {
+                        done = true
+                        addedPointValue = 0.6
+                    }else if handCopy[i]%13 == 6 {
+                        done = true
+                        addedPointValue = 0.5
+                    }else if handCopy[i]%13 == 5 {
+                        done = true
+                        addedPointValue = 0.4
+                    }else if handCopy[i]%13 == 4 {
+                        done = true
+                        addedPointValue = 0.3
+                    }else if handCopy[i]%13 == 3 {
+                        done = true
+                        addedPointValue = 0.2
+                    }else if handCopy[i]%13 == 2 {
+                        done = true
+                        addedPointValue = 0.1
+                    }
                 }
             }
         }
-        return Double(handValueCapy) + addedPointValue
+        return Double(handValue) + addedPointValue
     }
     
-    func AITurn(hand:Array <Int>,handValue:Int,howManyCardsInHand:Int,howManyPlayers:Int,canRemoveCards:Bool,howManyRemovedCards:Int,visableCards:Array<Int>,nessaryValues:Array<Int>,gameDeck:Array<Int>,AILV:Int){
+    func AITurn(hand:Array <Int>,handValue:Int,howManyCardsInHand:Int,howManyPlayers:Int,canRemoveCards:Bool,howManyRemovedCards:Int,visableCards:Array<Int>,nessaryValues:Array<Int>,gameDeck:Array<Int>,AILV:Int)-> Array<Int>{
         //copying stuf that changes
         
         //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
         var values = nessaryValues
         var knownDeck = [Int]()
         var handCopy = hand
-        var UsedDeck = deck
+        var UsedDeck = gameDeck
+        var newHandValue = 0
         //setting up deck
         for i in 1...52{
             knownDeck.append(i)
@@ -611,18 +632,19 @@ class AI {
             let oldHandValue = values[10]
 
             if canRemoveCards == true{
-                values  =  cardRemover(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4], handValue: handCopy[10], visibleCards: visableCards, nessaryValues: values)
+                values  =  cardRemover(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4], handValue: values[10], visibleCards: visableCards, nessaryValues: values)
                 for i in 0...2{
                     if values[11+i] != 0{
-                        handCopy[values[11+i]] = singleCardDealer(usedDeck: UsedDeck, isItGlobal: true)
+                        handCopy[values[11+i]-1] = singleCardDealer(usedDeck: UsedDeck, isItGlobal: true)
                         UsedDeck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
                     }
                 }
-                let newHandValue = modedCardValuator(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4])
+                newHandValue = modedCardValuator(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4])
                 values[10] = newHandValue
                 for i in 0...howManyCardsInHand-1{
                     values[i] = handCopy[i]
                 }
+            }//can remove end
                 
                 if AILV == 1{
                     if newHandValue < oldHandValue{
@@ -662,13 +684,16 @@ class AI {
                         values[15] = 3
                         //1 fold 2 call 3 raise
                     }
+                }else if AILV == 3 {
+                    
                 }
-            }
+            
         }else if howManyCardsInHand == 2{
             //this is a 2 card game
             //games include
             //Texas holdem
         }
+        return values
     }
     func modedCardValuator(card1: Int, card2: Int, card3: Int, card4: Int, card5: Int)-> Int{
         

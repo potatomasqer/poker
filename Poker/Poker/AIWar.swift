@@ -33,89 +33,169 @@ class AIWar: UIViewController {
     var deck = [Int]()
     var deckCopy = [Int]()
     var importentCardLocation = [Int]()
+    var topBet = 0
+    var gameInProgress = false
+    var amountCalled = 0
     //AI 1
-     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
-    var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Choice
+    var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI1Hand = [Int]()
     var AI1VisableCards = [Int]()
     var AI1Wins = 0
+    var AI1BetAmount = 0
+    var AI1AmountLeft = 10000
     //AI 2
-     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 chance opponent has a better card
-    var AI2Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+     //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Choice
+    var AI2Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     var AI2Hand = [Int]()
     var AI2VisableCards = [Int]()
     var AI2Wins = 0
+    var AI2BetAmount = 0
+    var AI2AmountLeft = 10000
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     @IBAction func playOne(_ sender: UIButton) {
+        resetAll()
+        gameInProgress = true
         for i in 1...52{
-            if i != 0{
             deck.append(i)
-            }
         }
         deckCopy = deck
-        
-        
+        print(deck.count)
         AI1Hand = AIControler.fullHandDealer(deck: deck, isItGlobal: true)
         deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
         
         AI2Hand = AIControler.fullHandDealer(deck: deck, isItGlobal: true)
         deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
-        //AI 1 defult
-        //AI 2 Custom
-        AI1Values = AIControler.cardRemover(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4], handValue: AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI1Values)
-        for i in 0...2{
-            if AI1Values[11+i] != 0{
-                AI1Hand[AI1Values[11+i]] = AIControler.singleCardDealer(usedDeck: deck, isItGlobal: true)
-                deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
+        //AI 1 lv1
+        //AI 2 lv2
+        gameInProgress = true
+        while gameInProgress == true{
+            var i = 0
+            print("printing i", i)
+            if i == 0{i = 1
+                print(i)
+                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
+                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
+                
+            }else{
+                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
+                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
+                i += 1
             }
-        }
-        AI2Values = customCardRemover(card1: AI2Hand[0], card2: AI2Hand[1], card3: AI2Hand[2], card4: AI2Hand[3], card5: AI2Hand[4], handValue: customCardValuator(card1: AI2Hand[0], card2: AI2Hand[1], card3: AI2Hand[2], card4: AI2Hand[3], card5: AI2Hand[4]), visibleCards: AI1VisableCards, nessaryValues: AI2Values, needToRemoveCards: true)
-        for i in 0...2{
-            if AI2Values[11+i] != 0{
-                AI2Hand[AI1Values[11+i]] = AIControler.singleCardDealer(usedDeck: deck, isItGlobal: true)
-                deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
-            }
-        }
-
-        AI1Values[10] = AIControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
-        AI2Values[10] = AIControler.cardValuator(card1: AI2Hand[0], card2: AI2Hand[1], card3: AI2Hand[2], card4: AI2Hand[3], card5: AI2Hand[4])
-        if AI1Values[10] > AI2Values[10]{
-            //Ai 1 wins
-            AI1Wins += 1
-        }else if AI1Values[10] < AI2Values[10]{
-            //AI 2 wins
-            AI2Wins += 1
-        }else{
-            //they are equal
-            //highcard finder iniation
-            let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
-            let AI2Double = AIControler.highCardDetector(hand: AI2Hand, handValue: AI2Values[10])
             
-            if AI1Double > AI2Double{
-                AI1Wins += 1
-            }else if AI1Double < AI2Double{
+            
+            if AI1Values[15] == 3{
+                print("Bet Raised")
+                amountCalled = 0
+                topBet += 100
+                AI1BetAmount+=100
+                AI1AmountLeft -= 100
+            }
+            if AI2Values[15] == 3{
+                print("Bet Raised")
+                amountCalled = 0
+                topBet += 100
+                AI2BetAmount+=100
+                AI2AmountLeft -= 100
+            }
+            if AI1AmountLeft == 0 || AI2AmountLeft == 0{
+                print("one player is out of cash")
+                print("AI1", AI1AmountLeft)
+                print("AI2",AI2AmountLeft)
+                //all in finnish
+                gameInProgress = false
+                if AI1Values[10] > AI2Values[10]{
+                    //Ai 1 wins
+                    AI1Wins += 1
+                }else if AI1Values[10] < AI2Values[10]{
+                    //AI 2 wins
+                    AI2Wins += 1
+                }else{
+                    //they are equal
+                    //highcard finder iniation
+                    let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
+                    let AI2Double = AIControler.highCardDetector(hand: AI2Hand, handValue: AI2Values[10])
+                
+                    if AI1Double > AI2Double{
+                        AI1Wins += 1
+                    }else if AI1Double < AI2Double{
+                        AI2Wins += 1
+                    }
+                }
+            }
+            if AI1Values[15] == 2{
+                print("AI1 folds")
+                amountCalled = 0
+                gameInProgress = false
                 AI2Wins += 1
             }
-        }
-        AI1card1.text = String(AI1Hand[0]%13)
-        AI1card2.text = String(AI1Hand[1]%13)
-        AI1card3.text = String(AI1Hand[2]%13)
-        AI1card4.text = String(AI1Hand[3]%13)
-        AI1card5.text = String(AI1Hand[4]%13)
+            if AI2Values[15] == 2{
+                print("AI2 folds")
+                amountCalled = 0
+                gameInProgress = false
+                AI1Wins += 1
+            }
+            if AI1Values[15] == 2 && AI2Values[15] == 2{
+                gameInProgress = false
+                AI1Wins -= 1
+                AI2Wins -= 1
+            }
+            if AI1Values[15] == 1{
+                print("AI1Calls")
+                amountCalled += 1
+                //call
+                AI1AmountLeft -= topBet-AI1BetAmount
+                AI1BetAmount = topBet
+            }
+            if AI2Values[15] == 1{
+                print("AI2Calls")
+                amountCalled += 1
+                //call
+                AI2AmountLeft -= topBet-AI2BetAmount
+                AI2BetAmount = topBet
+            }
+            if amountCalled == 2{
+                print("both Called")
+                gameInProgress = false
+                if AI1Values[10] > AI2Values[10]{
+                    //Ai 1 wins
+                    AI1Wins += 1
+                }else if AI1Values[10] < AI2Values[10]{
+                    //AI 2 wins
+                    AI2Wins += 1
+                }else{
+                    //they are equal
+                    //highcard finder iniation
+                    let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
+                    let AI2Double = AIControler.highCardDetector(hand: AI2Hand, handValue: AI2Values[10])
+                    print(AI1Double,AI2Double)
+                    if AI1Double > AI2Double{
+                        AI1Wins += 1
+                    }else if AI1Double < AI2Double{
+                        AI2Wins += 1
+                    }
+                }
+            }
+            
+            AI1card1.text = String(AI1Hand[0]%13)
+            AI1card2.text = String(AI1Hand[1]%13)
+            AI1card3.text = String(AI1Hand[2]%13)
+            AI1card4.text = String(AI1Hand[3]%13)
+            AI1card5.text = String(AI1Hand[4]%13)
         
-        AI2card1.text = String(AI2Hand[0]%13)
-        AI2card2.text = String(AI2Hand[1]%13)
-        AI2card3.text = String(AI2Hand[2]%13)
-        AI2card4.text = String(AI2Hand[3]%13)
-        AI2card5.text = String(AI2Hand[4]%13)
-        
-        AI1WinText.text = String(AI1Wins)
-        AI2WinText.text = String(AI2Wins)
-        deck = []
+            AI2card1.text = String(AI2Hand[0]%13)
+            AI2card2.text = String(AI2Hand[1]%13)
+            AI2card3.text = String(AI2Hand[2]%13)
+            AI2card4.text = String(AI2Hand[3]%13)
+            AI2card5.text = String(AI2Hand[4]%13)
+            
+            AI1WinText.text = String(AI1Wins)
+            AI2WinText.text = String(AI2Wins)
+        }//while end
     }
     @IBAction func playXTimes(_ sender: Any) {
         for i in 1...52{
@@ -125,8 +205,6 @@ class AIWar: UIViewController {
         }
         for _ in 0...100{
             deckCopy = deck
-            
-            
             AI1Hand = AIControler.fullHandDealer(deck: deck, isItGlobal: true)
             deck = UserDefaults.standard.array(forKey: "GlobalDeck") as! [Int]
             
@@ -416,6 +494,28 @@ class AIWar: UIViewController {
         }
         //failed to count cards? or cards amount below 2
         return 0
+    }
+    func resetAll(){
+         deck = [Int]()
+         deckCopy = [Int]()
+         importentCardLocation = [Int]()
+         topBet = 0
+         gameInProgress = false
+         amountCalled = 0
+
+         AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+         AI1Hand = [Int]()
+         AI1VisableCards = [Int]()
+         AI1Wins = 0
+         AI1BetAmount = 0
+         AI1AmountLeft = 10000
+        
+         AI2Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+         AI2Hand = [Int]()
+         AI2VisableCards = [Int]()
+         AI2Wins = 0
+         AI2BetAmount = 0
+         AI2AmountLeft = 10000
     }
 
 }
