@@ -620,6 +620,9 @@ class AI {
                 }
                 let newHandValue = modedCardValuator(card1: handCopy[0], card2: handCopy[1], card3: handCopy[2], card4: handCopy[3], card5: handCopy[4])
                 values[10] = newHandValue
+                for i in 0...howManyCardsInHand-1{
+                    values[i] = handCopy[i]
+                }
                 
                 if AILV == 1{
                     if newHandValue < oldHandValue{
@@ -638,6 +641,27 @@ class AI {
                         //1 fold 2 call 3 raise
                     }
 
+                }else if AILV == 2{
+                    if newHandValue < oldHandValue{
+                        //less then pervous
+                        values[15] = 1
+                    }
+                    if newHandValue >= oldHandValue{
+                        //better or equel to
+                        //stay in game
+                        values[15] = 2
+                        //1 fold 2 call 3 raise
+                    }
+                    if newHandValue >= 3{
+                        //top 7%
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+                    if Int.random(in: 0...100) <= 20*howManyPlayers*newHandValue%100{
+                        //random raise
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
                 }
             }
         }else if howManyCardsInHand == 2{
