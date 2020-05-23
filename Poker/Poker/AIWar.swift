@@ -36,6 +36,8 @@ class AIWar: UIViewController {
     var topBet = 0
     var gameInProgress = false
     var amountCalled = 0
+    var ifRasedThisTurn = false
+    var notFirstRased = false
     //AI 1
      //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Choice
     var AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -73,35 +75,74 @@ class AIWar: UIViewController {
         //AI 1 lv1
         //AI 2 lv2
         gameInProgress = true
+        var i = 0
         while gameInProgress == true{
-            var i = 0
+            ifRasedThisTurn = false
             print("printing i", i)
-            if i == 0{i = 1
+            //AI1 turn
+            if i == 0{
                 print(i)
-                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
-                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
+                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: ifRasedThisTurn, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 3)
             }
             if i != 0{
-                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
-                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
-            }
-            i += 1
+                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: ifRasedThisTurn, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 4)
+                }
             
             
             if AI1Values[15] == 3{
-                print("Bet Raised")
+                print("AI1 Raised")
+                ifRasedThisTurn = true
                 amountCalled = 0
                 topBet += 100
                 AI1BetAmount+=100
                 AI1AmountLeft -= 100
             }
+            if AI1Values[15] == 2{
+                print("AI1 folds")
+                amountCalled = 0
+                gameInProgress = false
+                AI2Wins += 1
+            }
+            if AI1Values[15] == 1{
+                print("AI1Calls")
+                notFirstRased = false
+                amountCalled += 1
+                //call
+                AI1AmountLeft -= topBet-AI1BetAmount
+                AI1BetAmount = topBet
+            }
+            
+            if i == 0{
+                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: ifRasedThisTurn, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
+            }
+            if i != 0{
+                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: ifRasedThisTurn, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
+            }
+            i += 1
             if AI2Values[15] == 3{
-                print("Bet Raised")
+                print("AI2 Raised")
+                ifRasedThisTurn = true
+                notFirstRased = true
                 amountCalled = 0
                 topBet += 100
                 AI2BetAmount+=100
                 AI2AmountLeft -= 100
             }
+            if AI2Values[15] == 2{
+                print("AI2 folds")
+                amountCalled = 0
+                gameInProgress = false
+                AI1Wins += 1
+            }
+            if AI2Values[15] == 1{
+                notFirstRased = false
+                print("AI2Calls")
+                amountCalled += 1
+                //call
+                AI2AmountLeft -= topBet-AI2BetAmount
+                AI2BetAmount = topBet
+            }
+            
             if AI1AmountLeft == 0 || AI2AmountLeft == 0{
                 print("one player is out of cash")
                 print("AI1", AI1AmountLeft)
@@ -127,39 +168,41 @@ class AIWar: UIViewController {
                     }
                 }
             }
-            if AI1Values[15] == 2{
-                print("AI1 folds")
-                amountCalled = 0
+            if notFirstRased == false{
+                print("not first raised")
+                print("AI1", AI1AmountLeft)
+                print("AI2",AI2AmountLeft)
+                //all in finnish
                 gameInProgress = false
-                AI2Wins += 1
-            }
-            if AI2Values[15] == 2{
-                print("AI2 folds")
-                amountCalled = 0
-                gameInProgress = false
-                AI1Wins += 1
+                if AI1Values[10] > AI2Values[10]{
+                    //Ai 1 wins
+                    AI1Wins += 1
+                }else if AI1Values[10] < AI2Values[10]{
+                    //AI 2 wins
+                    AI2Wins += 1
+                }else{
+                    //they are equal
+                    //highcard finder iniation
+                    let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
+                    let AI2Double = AIControler.highCardDetector(hand: AI2Hand, handValue: AI2Values[10])
+                
+                    if AI1Double > AI2Double{
+                        AI1Wins += 1
+                    }else if AI1Double < AI2Double{
+                        AI2Wins += 1
+                    }
+                }
             }
             if AI1Values[15] == 2 && AI2Values[15] == 2{
                 gameInProgress = false
                 AI1Wins -= 1
                 AI2Wins -= 1
             }
-            if AI1Values[15] == 1{
-                print("AI1Calls")
-                amountCalled += 1
-                //call
-                AI1AmountLeft -= topBet-AI1BetAmount
-                AI1BetAmount = topBet
-            }
-            if AI2Values[15] == 1{
-                print("AI2Calls")
-                amountCalled += 1
-                //call
-                AI2AmountLeft -= topBet-AI2BetAmount
-                AI2BetAmount = topBet
-            }
             if amountCalled == 2{
                 print("both Called")
+                print("Amount Left")
+                print("AI1", AI1AmountLeft)
+                print("AI2",AI2AmountLeft)
                 gameInProgress = false
                 if AI1Values[10] > AI2Values[10]{
                     //Ai 1 wins
