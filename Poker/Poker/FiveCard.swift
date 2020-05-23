@@ -214,7 +214,7 @@ class FiveCard: UIViewController {
                     //check handvalue
                     if whatRoundIsIt == 1{
                         AI1Values[10] = aiControler.cardValuator(card1: AI1Hand[0], card2: AI1Hand[1], card3: AI1Hand[2], card4: AI1Hand[3], card5: AI1Hand[4])
-                        aiControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: numberOfPlayers, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: gameDeck, AILV: 1)
+                        aiControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: numberOfPlayers, ifRaisedThisTurn: <#Bool#>, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: gameDeck, AILV: 1)
                     }
                     //AI1 turn end
                 }

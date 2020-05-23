@@ -78,14 +78,14 @@ class AIWar: UIViewController {
             print("printing i", i)
             if i == 0{i = 1
                 print(i)
-                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
-                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
-                
-            }else{
-                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
-                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
-                i += 1
+                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
+                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: true, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
             }
+            if i != 0{
+                AI1Values = AIControler.AITurn(hand: AI1Hand, handValue: AI1Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI1Values, gameDeck: deck, AILV: 1)
+                AI2Values = AIControler.AITurn(hand: AI2Hand, handValue: AI2Values[10], howManyCardsInHand: 5, howManyPlayers: 2, ifRaisedThisTurn: <#Bool#>, canRemoveCards: false, howManyRemovedCards: 3, visableCards: [], nessaryValues: AI2Values, gameDeck: deck, AILV: 2)
+            }
+            i += 1
             
             
             if AI1Values[15] == 3{

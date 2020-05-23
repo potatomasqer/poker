@@ -598,7 +598,7 @@ class AI {
         return Double(handValue) + addedPointValue
     }
     
-    func AITurn(hand:Array <Int>,handValue:Int,howManyCardsInHand:Int,howManyPlayers:Int,canRemoveCards:Bool,howManyRemovedCards:Int,visableCards:Array<Int>,nessaryValues:Array<Int>,gameDeck:Array<Int>,AILV:Int)-> Array<Int>{
+    func AITurn(hand:Array <Int>,handValue:Int,howManyCardsInHand:Int,howManyPlayers:Int,ifRaisedThisTurn:Bool,canRemoveCards:Bool,howManyRemovedCards:Int,visableCards:Array<Int>,nessaryValues:Array<Int>,gameDeck:Array<Int>,AILV:Int)-> Array<Int>{
         //copying stuf that changes
         
         //0...4 cards, 5...9 card values, 10 hand value, 11...13 cards to trade in,14 score AI wants ,15 Ai Choice
@@ -685,8 +685,60 @@ class AI {
                         //1 fold 2 call 3 raise
                     }
                 }else if AILV == 3 {
-                    
-                }
+                    if newHandValue < oldHandValue{
+                        //less then pervous
+                        values[15] = 1
+                    }
+                    if newHandValue >= oldHandValue{
+                        //better or equel to
+                        //stay in game
+                        values[15] = 2
+                        //1 fold 2 call 3 raise
+                    }
+                    if ifRaisedThisTurn == false{
+                        //nobody raised
+                        //time to bluff
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+                    if newHandValue >= 3{
+                        //top 7%
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+                    if Int.random(in: 0...100) <= 20*howManyPlayers*newHandValue%100{
+                        //random raise
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+                }else if AILV == 4{
+                    if newHandValue >= oldHandValue{
+                        //better or equel to
+                        //stay in game
+                        values[15] = 2
+                        //1 fold 2 call 3 raise
+                    }
+                    if ifRaisedThisTurn == false{
+                        //nobody raised
+                        //time to bluff
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+                    if newHandValue >= 3{
+                        //top 7%
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }
+                    if Int.random(in: 0...100) <= 20*howManyPlayers*newHandValue%100{
+                        //random raise
+                        values[15] = 3
+                        //1 fold 2 call 3 raise
+                    }else if  Int.random(in: 0...100) <= 20*howManyPlayers*newHandValue*values[1]%100{
+                        //random call if not random rase
+                        values[15] = 2
+                        //1 fold 2 call 3 raise
+                    }
+            }
             
         }else if howManyCardsInHand == 2{
             //this is a 2 card game
