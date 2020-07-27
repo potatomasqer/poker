@@ -220,21 +220,24 @@ class AIWar: UIViewController {
                 print("ammount out",amountOut)
                 //all in finnish
                 gameInProgress = false
-                winProcessed = true
                 print("values",AI1Values[10],AI2Values[10],AI3Values[10])
                 if AI1Values[10] > AI2Values[10] && AI1Values[10] > AI3Values[10]{
+                    winProcessed = true
                     //Ai 1 wins
                     AI1Wins += 1
-                    print("AI1 wins")
+                    print("AI1 wins", AI1Values[10], AI2Values[10], AI3Values[10] )
                 }else if AI2Values[10] > AI1Values[10] && AI2Values[10] > AI3Values[10]{
+                    winProcessed = true
                     //AI 2 wins
                     AI2Wins += 1
-                    print("AI2 wins")
+                    print("AI2 wins",  AI1Values[10], AI2Values[10], AI3Values[10])
                 }else if AI3Values[10] > AI1Values[10] && AI3Values[10] > AI2Values[10]{
+                    winProcessed = true
                     //AI 3 wins
                     AI3Wins += 1
-                    print("AI3 wins")
+                    print("AI3 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                 }else{
+                    winProcessed = true
                     //they are equal
                     //highcard finder iniation
                     let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
@@ -242,10 +245,13 @@ class AIWar: UIViewController {
                     let AI3Double = AIControler.highCardDetector(hand: AI3Hand, handValue: AI3Values[10])
                     if AI1Double > AI2Double && AI1Double > AI3Double {
                         AI1Wins += 1
+                        print("AI1 wins", AI1Values[10], AI2Values[10], AI3Values[10] )
                     }else if AI2Double > AI1Double && AI2Double > AI3Double{
                         AI2Wins += 1
+                        print("AI2 wins",  AI1Values[10], AI2Values[10], AI3Values[10])
                     }else if AI3Double > AI1Double && AI3Double > AI2Double{
                         AI3Wins += 1
+                        print("AI3 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                     }else{
                         print("nobody won")
                     }
@@ -253,29 +259,30 @@ class AIWar: UIViewController {
                 }
             }
             //ending 2
-            if amountCalled == 2{
+            if amountCalled <= 2{
                 print("all Called")
                 print("AI1", AI1AmountLeft)
                 print("AI2",AI2AmountLeft)
                 print("AI3",AI3AmountLeft)
                 print("ammount out",amountOut)
                 gameInProgress = false
-                if winProcessed == true{
+                if winProcessed == false{
+                    print("win not processed")
                     //all in finnish
                     if AI1Values[10] > AI2Values[10] && AI1Values[10] > AI3Values[10]{
                         //Ai 1 wins
                         AI1Wins += 1
-                        print("AI1 wins")
+                        print("AI1 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                     }else if AI2Values[10] > AI1Values[10] && AI2Values[10] > AI3Values[10]{
                         //AI 2 wins
                         AI2Wins += 1
-                        print("AI2 wins")
+                        print("AI2 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                     }else if AI3Values[10] > AI1Values[10] && AI3Values[10] > AI2Values[10]{
                         //AI 3 wins
                         AI3Wins += 1
-                        print("AI3 wins")
+                        print("AI3 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                     }else{
-                    
+                        print("they are equel")
                         //they are equal
                         //highcard finder iniation
                         let AI1Double = AIControler.highCardDetector(hand: AI1Hand, handValue: AI1Values[10])
@@ -283,15 +290,15 @@ class AIWar: UIViewController {
                         let AI3Double = AIControler.highCardDetector(hand: AI3Hand, handValue: AI3Values[10])
                         if AI1Double > AI2Double && AI1Double > AI3Double {
                             AI1Wins += 1
-                            print("AI1 wins")
+                            print("AI1 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                         }else if AI2Double > AI1Double && AI2Double > AI3Double{
                             AI2Wins += 1
-                            print("AI2 wins")
+                            print("AI2 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                         }else if AI3Double > AI1Double && AI3Double > AI2Double{
                             AI3Wins += 1
-                            print("AI3 wins")
+                            print("AI3 wins", AI1Values[10], AI2Values[10], AI3Values[10])
                         }else{
-                            print("nobody won")
+                            print("nobody won", AI1Values[10], AI2Values[10], AI3Values[10])
                         }
 
                     }
@@ -300,7 +307,8 @@ class AIWar: UIViewController {
             //ending 3
             if amountOut == 2{
                 print("ammount out",amountOut)
-                if winProcessed == true{
+                if winProcessed == false{
+                    print("win not processed")
                     print("2 out")
                     if is1out == false{
                         AI1Wins += 1
@@ -659,7 +667,7 @@ class AIWar: UIViewController {
          amountCalled = 0
          whoRasedLast = 1
          winProcessed = false
-        amountOut = 0
+         amountOut = 0
 
          AI1Values = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
          AI1Hand = [Int]()

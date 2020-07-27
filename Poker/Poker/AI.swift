@@ -539,61 +539,51 @@ class AI {
     }
     
     func highCardDetector(hand:Array<Int>,handValue:Int)-> Double{
+        print("detecting")
         //this function findes the highest card and adds a 0.X value to the current value
         var handCopy = hand
         var addedPointValue = 0.0
         var cardValues = [Int]()
-        var done = false
         handCopy.sort(by: >)
         //puts all checked cards into array
         for i in 0...handCopy.count-1{
             cardValues.append(cardChecker(cardToCheck: handCopy[i], card2: handCopy[(i+1)%5], card3: handCopy[(i+2)%5], card4: handCopy[(i+3)%5], card5: handCopy[(i+4)%5]))
         }
+        print("hand copy counted")
         for i in 0...handCopy.count-1{
-            while done == false{
-                if handCopy[i] != 0 && cardValues[i] != 0{
-                    if handCopy[i]%13 == 1 {
-                        done = true
-                        addedPointValue = 0.99
-                    }else if handCopy[i]%13 == 0 {
-                        done = true
-                        addedPointValue = 0.96
-                    }else if handCopy[i]%13 == 12 {
-                        done = true
-                        addedPointValue = 0.94
-                    }else if handCopy[i]%13 == 11 {
-                        done = true
-                        addedPointValue = 0.92
-                    }else if handCopy[i]%13 == 10 {
-                        done = true
-                        addedPointValue = 0.9
-                    }else if handCopy[i]%13 == 9 {
-                        done = true
-                        addedPointValue = 0.8
-                    }else if handCopy[i]%13 == 8 {
-                        done = true
-                        addedPointValue = 0.7
-                    }else if handCopy[i]%13 == 7 {
-                        done = true
-                        addedPointValue = 0.6
-                    }else if handCopy[i]%13 == 6 {
-                        done = true
-                        addedPointValue = 0.5
-                    }else if handCopy[i]%13 == 5 {
-                        done = true
-                        addedPointValue = 0.4
-                    }else if handCopy[i]%13 == 4 {
-                        done = true
-                        addedPointValue = 0.3
-                    }else if handCopy[i]%13 == 3 {
-                        done = true
-                        addedPointValue = 0.2
-                    }else if handCopy[i]%13 == 2 {
-                        done = true
-                        addedPointValue = 0.1
-                    }
+            if handCopy[i] != 0 && cardValues[i] != 0{
+            if handCopy[i]%13 == 1 {
+                addedPointValue = 0.99
+            }else if handCopy[i]%13 == 0 {
+                addedPointValue = 0.96
+            }else if handCopy[i]%13 == 12 {
+                addedPointValue = 0.94
+            }else if handCopy[i]%13 == 11 {
+                addedPointValue = 0.92
+            }else if handCopy[i]%13 == 10 {
+                addedPointValue = 0.9
+            }else if handCopy[i]%13 == 9 {
+                addedPointValue = 0.8
+            }else if handCopy[i]%13 == 8 {
+                addedPointValue = 0.7
+            }else if handCopy[i]%13 == 7 {
+                addedPointValue = 0.6
+            }else if handCopy[i]%13 == 6 {
+                addedPointValue = 0.5
+            }else if handCopy[i]%13 == 5 {
+                addedPointValue = 0.4
+            }else if handCopy[i]%13 == 4 {
+                addedPointValue = 0.3
+            }else if handCopy[i]%13 == 3 {
+                addedPointValue = 0.2
+            }else if handCopy[i]%13 == 2 {
+                addedPointValue = 0.1
+            }else{
+                print("cant find last number",handCopy[i])
+                addedPointValue = 0.0
                 }
             }
+            print("done")
         }
         return Double(handValue) + addedPointValue
     }
